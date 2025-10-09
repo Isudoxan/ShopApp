@@ -12,6 +12,7 @@
 		3D1E7B692E983481008EE67B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D1E7B632E983481008EE67B /* Assets.xcassets */; };
 		3D1E7B6C2E985B45008EE67B /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1E7B6B2E985B45008EE67B /* Product.swift */; };
 		3D1E7B6E2E985B74008EE67B /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1E7B6D2E985B74008EE67B /* CartItem.swift */; };
+		3D1E7B712E985C85008EE67B /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1E7B702E985C85008EE67B /* MockData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		3D1E7B652E983481008EE67B /* ShopAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopAppApp.swift; sourceTree = "<group>"; };
 		3D1E7B6B2E985B45008EE67B /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		3D1E7B6D2E985B74008EE67B /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
+		3D1E7B702E985C85008EE67B /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 				3D1E7B632E983481008EE67B /* Assets.xcassets */,
 				3D1E7B652E983481008EE67B /* ShopAppApp.swift */,
 				3D1E7B642E983481008EE67B /* RootView.swift */,
+				3D1E7B6F2E985C67008EE67B /* Services */,
 				3D1E7B6A2E985B36008EE67B /* Models */,
 			);
 			path = ShopApp;
@@ -68,6 +71,14 @@
 				3D1E7B6B2E985B45008EE67B /* Product.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3D1E7B6F2E985C67008EE67B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3D1E7B702E985C85008EE67B /* MockData.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +157,7 @@
 				3D1E7B682E983481008EE67B /* ShopAppApp.swift in Sources */,
 				3D1E7B6E2E985B74008EE67B /* CartItem.swift in Sources */,
 				3D1E7B6C2E985B45008EE67B /* Product.swift in Sources */,
+				3D1E7B712E985C85008EE67B /* MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
