@@ -6,17 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3D1E7B672E983481008EE67B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1E7B642E983481008EE67B /* ContentView.swift */; };
+		3D1E7B682E983481008EE67B /* ShopAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1E7B652E983481008EE67B /* ShopAppApp.swift */; };
+		3D1E7B692E983481008EE67B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D1E7B632E983481008EE67B /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		3D1E7B552E983478008EE67B /* ShopApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D1E7B632E983481008EE67B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3D1E7B642E983481008EE67B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3D1E7B652E983481008EE67B /* ShopAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopAppApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		3D1E7B572E983478008EE67B /* ShopApp */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ShopApp;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3D1E7B522E983478008EE67B /* Frameworks */ = {
@@ -32,7 +33,7 @@
 		3D1E7B4C2E983478008EE67B = {
 			isa = PBXGroup;
 			children = (
-				3D1E7B572E983478008EE67B /* ShopApp */,
+				3D1E7B662E983481008EE67B /* ShopApp */,
 				3D1E7B562E983478008EE67B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +44,16 @@
 				3D1E7B552E983478008EE67B /* ShopApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3D1E7B662E983481008EE67B /* ShopApp */ = {
+			isa = PBXGroup;
+			children = (
+				3D1E7B632E983481008EE67B /* Assets.xcassets */,
+				3D1E7B642E983481008EE67B /* ContentView.swift */,
+				3D1E7B652E983481008EE67B /* ShopAppApp.swift */,
+			);
+			path = ShopApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +70,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				3D1E7B572E983478008EE67B /* ShopApp */,
 			);
 			name = ShopApp;
 			packageProductDependencies = (
@@ -109,6 +117,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1E7B692E983481008EE67B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +128,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1E7B672E983481008EE67B /* ContentView.swift in Sources */,
+				3D1E7B682E983481008EE67B /* ShopAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
