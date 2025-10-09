@@ -17,6 +17,7 @@
 		3D1E7B762E986329008EE67B /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1E7B752E986329008EE67B /* SettingsManager.swift */; };
 		3D1E7B7B2E9865B3008EE67B /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1E7B7A2E9865B3008EE67B /* AppCoordinator.swift */; };
 		3D3E2D4B2E987E3F00675C05 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D4A2E987E3F00675C05 /* MainTabView.swift */; };
+		3D3E2D4D2E987EEE00675C05 /* ProductCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D4C2E987EEE00675C05 /* ProductCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		3D1E7B752E986329008EE67B /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		3D1E7B7A2E9865B3008EE67B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3D3E2D4A2E987E3F00675C05 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		3D3E2D4C2E987EEE00675C05 /* ProductCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		3D1E7B792E98652D008EE67B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3D3E2D4C2E987EEE00675C05 /* ProductCardView.swift */,
 				3D3E2D4A2E987E3F00675C05 /* MainTabView.swift */,
 				3D1E7B642E983481008EE67B /* RootView.swift */,
 			);
@@ -185,6 +188,7 @@
 				3D1E7B672E983481008EE67B /* RootView.swift in Sources */,
 				3D3E2D4B2E987E3F00675C05 /* MainTabView.swift in Sources */,
 				3D1E7B682E983481008EE67B /* ShopAppApp.swift in Sources */,
+				3D3E2D4D2E987EEE00675C05 /* ProductCardView.swift in Sources */,
 				3D1E7B6E2E985B74008EE67B /* CartItem.swift in Sources */,
 				3D1E7B7B2E9865B3008EE67B /* AppCoordinator.swift in Sources */,
 				3D1E7B742E985EE3008EE67B /* AppState.swift in Sources */,
