@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct ShopApp: App {
+    @StateObject var coordinator = AppCoordinator()
+
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environmentObject(coordinator)
+                .preferredColorScheme(coordinator.settingsManager.selectedTheme.colorSchemeOverride)
         }
     }
 }
