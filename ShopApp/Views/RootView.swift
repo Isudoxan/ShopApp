@@ -9,9 +9,6 @@ import SwiftUI
 
 struct RootView: View {
     var body: some View {
-        Text("Page")
-            .font(.headline)
-            .multilineTextAlignment(.center)
-            .padding()
+        MainTabView()
     }
 }
