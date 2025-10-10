@@ -14,6 +14,8 @@ struct MainTabView: View {
                 .tabItem { Label("Catalog", systemImage: "list.bullet") }
             FavoritesView()
                 .tabItem { Label("Favorites", systemImage: "heart.fill") }
+            CartView()
+                .tabItem { Label("Cart", systemImage: "cart.fill") }
         }
     }
 }
