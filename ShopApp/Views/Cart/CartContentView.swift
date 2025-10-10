@@ -29,19 +29,25 @@ struct CartContentView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text(item.product.name).bold()
-                                Text(String(format: "₴ %.2f", item.product.price)).foregroundColor(.secondary)
+                                Text(String(format: "₴ %.2f", item.product.price))
+                                    .foregroundColor(.secondary)
                             }
                             Spacer()
-                            HStack {
+                            HStack(spacing: 8) {
                                 Button(action: { viewModel.decrease(item) }) {
                                     Image(systemName: "minus.circle")
+                                        .font(.title2)
                                 }
-                                Text("\(item.quantity)").frame(minWidth: 32)
+                                Text("\(item.quantity)")
+                                    .frame(minWidth: 32)
                                 Button(action: { viewModel.increase(item) }) {
                                     Image(systemName: "plus.circle")
+                                        .font(.title2)
                                 }
                             }
+                            .buttonStyle(BorderlessButtonStyle())
                         }
+                        .padding(.vertical, 8)
                     }
                     .onDelete { indexSet in
                         for indexForDelete in indexSet {
@@ -51,6 +57,7 @@ struct CartContentView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
+                
                 HStack {
                     Text("Result:").font(.headline)
                     Spacer()
