@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Product: Identifiable, Codable, Equatable {
+struct Product: Identifiable, Codable, Equatable, Hashable {
     
     // MARK: - Properties
     
