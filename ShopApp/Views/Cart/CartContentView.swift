@@ -26,12 +26,26 @@ struct CartContentView: View {
             } else {
                 List {
                     ForEach(viewModel.items) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
+                        HStack(spacing: 12) {
+                            if let imageName = item.product.imageName, !imageName.isEmpty {
+                                Image(imageName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .cornerRadius(8)
+                            } else {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.gray.opacity(0.2))
+                                    .frame(width: 50, height: 50)
+                                    .overlay(Image(systemName: "cube.box.fill").foregroundColor(.gray))
+                            }
+                            VStack(alignment: .leading, spacing: 4) {
                                 Text(item.product.name).bold()
                                 Text(String(format: "₴ %.2f", item.product.price))
                                     .foregroundColor(.secondary)
+                                    .font(.subheadline)
                             }
+                            
                             Spacer()
                             HStack(spacing: 8) {
                                 Button(action: { viewModel.decrease(item) }) {
@@ -47,7 +61,7 @@ struct CartContentView: View {
                             }
                             .buttonStyle(BorderlessButtonStyle())
                         }
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 6)
                     }
                     .onDelete { indexSet in
                         for indexForDelete in indexSet {
