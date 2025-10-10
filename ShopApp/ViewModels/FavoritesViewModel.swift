@@ -33,10 +33,10 @@ final class FavoritesViewModel: ObservableObject {
     // MARK: - Methods
 
     func filtered() -> [Product] {
-        let s = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        if s.isEmpty { return favorites }
-        let lower = s.lowercased()
-        return favorites.filter { $0.name.lowercased().contains(lower) || $0.description.lowercased().contains(lower) }
+        let cleanSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if cleanSearchText.isEmpty { return favorites }
+        let textLowercades = cleanSearchText.lowercased()
+        return favorites.filter { $0.name.lowercased().contains(textLowercades) || $0.description.lowercased().contains(textLowercades) }
     }
 
     func remove(_ product: Product) {
