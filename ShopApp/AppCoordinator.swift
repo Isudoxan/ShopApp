@@ -30,4 +30,8 @@ final class AppCoordinator: ObservableObject {
     func toggleFavorite(_ product: Product) {
         appState.toggleFavorite(product)
     }
+    
+    func updateQuantity(for product: Product, quantity: Int) {
+        appState.updateQuantity(for: product, quantity: quantity)
+    }
 }
