@@ -20,6 +20,7 @@ struct FavoritesContentView: View {
         VStack {
             SearchBar(text: $viewModel.searchText, placeholder: "Search in favorites")
                 .padding(.horizontal)
+            
             if viewModel.filtered().isEmpty {
                 Spacer()
                 Text("Empty now.").foregroundColor(.secondary)
@@ -28,15 +29,33 @@ struct FavoritesContentView: View {
                 List {
                     ForEach(viewModel.filtered()) { product in
                         HStack {
-                            VStack(alignment: .leading) {
+                            if let imageName = product.imageName, !imageName.isEmpty {
+                                Image(imageName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .cornerRadius(8)
+                            } else {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.gray.opacity(0.2))
+                                    .frame(width: 50, height: 50)
+                                    .overlay(Image(systemName: "cube.box.fill").foregroundColor(.gray))
+                            }
+                            
+                            VStack(alignment: .leading, spacing: 4) {
                                 Text(product.name).bold()
-                                Text(String(format: "₴ %.2f", product.price)).foregroundColor(.secondary)
+                                Text(String(format: "₴ %.2f", product.price))
+                                    .foregroundColor(.secondary)
+                                    .font(.subheadline)
                             }
                             Spacer()
+                            
                             Button(action: { coordinator.toggleFavorite(product) }) {
                                 Image(systemName: "trash")
+                                    .foregroundColor(.red)
                             }
                         }
+                        .padding(.vertical, 4)
                     }
                     .onDelete { indexSet in
                         let items = viewModel.filtered()
