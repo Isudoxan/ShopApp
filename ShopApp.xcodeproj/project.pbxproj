@@ -21,6 +21,7 @@
 		3D3E2D502E98817100675C05 /* ProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D4F2E98817100675C05 /* ProductListViewModel.swift */; };
 		3D3E2D522E9881F300675C05 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D512E9881F300675C05 /* ProductListView.swift */; };
 		3D3E2D542E98835100675C05 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D532E98835100675C05 /* ProductDetailView.swift */; };
+		3D3E2D562E988E3F00675C05 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D552E988E3F00675C05 /* FavoritesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		3D3E2D4F2E98817100675C05 /* ProductListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewModel.swift; sourceTree = "<group>"; };
 		3D3E2D512E9881F300675C05 /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
 		3D3E2D532E98835100675C05 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		3D3E2D552E988E3F00675C05 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 		3D3E2D4E2E98816200675C05 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3D3E2D552E988E3F00675C05 /* FavoritesViewModel.swift */,
 				3D3E2D4F2E98817100675C05 /* ProductListViewModel.swift */,
 			);
 			path = ViewModels;
@@ -209,6 +212,7 @@
 				3D1E7B682E983481008EE67B /* ShopAppApp.swift in Sources */,
 				3D3E2D4D2E987EEE00675C05 /* ProductCardView.swift in Sources */,
 				3D1E7B6E2E985B74008EE67B /* CartItem.swift in Sources */,
+				3D3E2D562E988E3F00675C05 /* FavoritesViewModel.swift in Sources */,
 				3D1E7B7B2E9865B3008EE67B /* AppCoordinator.swift in Sources */,
 				3D1E7B742E985EE3008EE67B /* AppState.swift in Sources */,
 				3D3E2D542E98835100675C05 /* ProductDetailView.swift in Sources */,
