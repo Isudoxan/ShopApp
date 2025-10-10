@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "vans_old_skool.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

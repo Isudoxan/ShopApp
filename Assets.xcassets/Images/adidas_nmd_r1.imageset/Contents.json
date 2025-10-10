@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "adidas_nmd_r1.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

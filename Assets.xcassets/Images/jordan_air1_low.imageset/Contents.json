@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "jordan_air1_low.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
