@@ -14,9 +14,15 @@ final class AppCoordinator: ObservableObject {
     
     @Published var appState = AppState()
     @Published var settingsManager = SettingsManager()
+    @Published var favorites: [Product] = []
+    @Published var cart: [Product] = []
     
     // MARK: - Methods
-
+    
+    func isFavorite(_ product: Product) -> Bool {
+        appState.isFavorite(product)
+    }
+    
     func addToCart(_ product: Product, quantity: Int = 1) {
         appState.addToCart(product, quantity: quantity)
     }
@@ -25,4 +31,3 @@ final class AppCoordinator: ObservableObject {
         appState.toggleFavorite(product)
     }
 }
-
