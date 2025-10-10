@@ -24,5 +24,18 @@ enum AppTheme: String, Codable {
 }
 
 final class SettingsManager: ObservableObject {
-    @Published var selectedTheme: AppTheme = .system
+    
+    // MARK: - Properties
+    
+    @Published var selectedTheme: AppTheme {
+        didSet {
+            PersistenceService.shared.saveTheme(selectedTheme)
+        }
+    }
+
+    // MARK: - Lifecycle
+    
+    init() {
+        self.selectedTheme = PersistenceService.shared.loadTheme()
+    }
 }
