@@ -29,6 +29,8 @@
 		3D3E2D662E989D0900675C05 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D652E989D0900675C05 /* CartView.swift */; };
 		3D3E2D682E989D5F00675C05 /* CartContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D672E989D5F00675C05 /* CartContentView.swift */; };
 		3D3E2D722E993A8900675C05 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D712E993A8900675C05 /* SettingsView.swift */; };
+		3D3E2D752E993E8100675C05 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D742E993E8100675C05 /* WebBrowserViewController.swift */; };
+		3D3E2D772E993EAC00675C05 /* GoogleBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D762E993EAC00675C05 /* GoogleBrowserView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		3D3E2D652E989D0900675C05 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		3D3E2D672E989D5F00675C05 /* CartContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartContentView.swift; sourceTree = "<group>"; };
 		3D3E2D712E993A8900675C05 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3D3E2D742E993E8100675C05 /* WebBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBrowserViewController.swift; sourceTree = "<group>"; };
+		3D3E2D762E993EAC00675C05 /* GoogleBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBrowserView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +97,6 @@
 				3D3E2D4E2E98816200675C05 /* ViewModels */,
 				3D1E7B792E98652D008EE67B /* Views */,
 				3D1E7B722E985E6D008EE67B /* State */,
-				3D3E2D6E2E99399900675C05 /* Settings */,
 				3D1E7B6F2E985C67008EE67B /* Services */,
 				3D1E7B6A2E985B36008EE67B /* Models */,
 			);
@@ -133,6 +136,8 @@
 				3D3E2D4A2E987E3F00675C05 /* MainTabView.swift */,
 				3D3E2D5E2E989BB900675C05 /* Products */,
 				3D3E2D5D2E989B9400675C05 /* Favorites */,
+				3D3E2D6E2E99399900675C05 /* Settings */,
+				3D3E2D732E993E7A00675C05 /* Browser */,
 				3D3E2D5F2E989C4C00675C05 /* Cart */,
 				3D3E2D592E98986000675C05 /* SearchBar.swift */,
 			);
@@ -207,6 +212,15 @@
 				3D3E2D712E993A8900675C05 /* SettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		3D3E2D732E993E7A00675C05 /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				3D3E2D762E993EAC00675C05 /* GoogleBrowserView.swift */,
+				3D3E2D742E993E8100675C05 /* WebBrowserViewController.swift */,
+			);
+			path = Browser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +298,7 @@
 				3D3E2D522E9881F300675C05 /* ProductListView.swift in Sources */,
 				3D3E2D502E98817100675C05 /* ProductListViewModel.swift in Sources */,
 				3D1E7B762E986329008EE67B /* SettingsManager.swift in Sources */,
+				3D3E2D772E993EAC00675C05 /* GoogleBrowserView.swift in Sources */,
 				3D1E7B672E983481008EE67B /* RootView.swift in Sources */,
 				3D3E2D4B2E987E3F00675C05 /* MainTabView.swift in Sources */,
 				3D3E2D5C2E9898D200675C05 /* FavoritesContentView.swift in Sources */,
@@ -291,6 +306,7 @@
 				3D3E2D5A2E98986000675C05 /* SearchBar.swift in Sources */,
 				3D3E2D582E9893A200675C05 /* FavoritesView.swift in Sources */,
 				3D1E7B682E983481008EE67B /* ShopAppApp.swift in Sources */,
+				3D3E2D752E993E8100675C05 /* WebBrowserViewController.swift in Sources */,
 				3D3E2D4D2E987EEE00675C05 /* ProductCardView.swift in Sources */,
 				3D1E7B6E2E985B74008EE67B /* CartItem.swift in Sources */,
 				3D3E2D562E988E3F00675C05 /* FavoritesViewModel.swift in Sources */,
