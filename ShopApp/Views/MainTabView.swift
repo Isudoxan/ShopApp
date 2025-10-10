@@ -10,10 +10,8 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            Text("Loading..")
-                .tabItem {
-                    Label("Catalogue", systemImage: "list.bullet")
-                }
+            ProductListView()
+                .tabItem { Label("Каталог", systemImage: "list.bullet") }
         }
     }
 }
