@@ -20,10 +20,18 @@ struct ProductCardView: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.gray.opacity(0.2))
-                .frame(width: 72, height: 72)
-                .overlay(Image(systemName: "cube.box.fill").font(.system(size: 28)).foregroundColor(.gray))
+            if let imageName = product.imageName {
+                Image(imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 72, height: 72)
+                    .cornerRadius(8)
+            } else {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(width: 72, height: 72)
+                    .overlay(Image(systemName: "cube.box.fill").font(.system(size: 28)).foregroundColor(.gray))
+            }
             VStack(alignment: .leading, spacing: 6) {
                 Text(product.name).font(.headline).lineLimit(1)
                 Text(product.description).font(.subheadline).foregroundColor(.secondary).lineLimit(2)
