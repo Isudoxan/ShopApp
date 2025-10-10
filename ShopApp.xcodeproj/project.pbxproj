@@ -31,6 +31,7 @@
 		3D3E2D722E993A8900675C05 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D712E993A8900675C05 /* SettingsView.swift */; };
 		3D3E2D752E993E8100675C05 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D742E993E8100675C05 /* WebBrowserViewController.swift */; };
 		3D3E2D772E993EAC00675C05 /* GoogleBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D762E993EAC00675C05 /* GoogleBrowserView.swift */; };
+		3D3E2D7A2E994AF400675C05 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D792E994AF400675C05 /* PersistenceService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		3D3E2D712E993A8900675C05 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3D3E2D742E993E8100675C05 /* WebBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBrowserViewController.swift; sourceTree = "<group>"; };
 		3D3E2D762E993EAC00675C05 /* GoogleBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBrowserView.swift; sourceTree = "<group>"; };
+		3D3E2D792E994AF400675C05 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			children = (
 				3D1E7B652E983481008EE67B /* ShopAppApp.swift */,
 				3D1E7B7A2E9865B3008EE67B /* AppCoordinator.swift */,
+				3D3E2D782E994AED00675C05 /* Persistance */,
 				3D3E2D4E2E98816200675C05 /* ViewModels */,
 				3D1E7B792E98652D008EE67B /* Views */,
 				3D1E7B722E985E6D008EE67B /* State */,
@@ -223,6 +226,14 @@
 			path = Browser;
 			sourceTree = "<group>";
 		};
+		3D3E2D782E994AED00675C05 /* Persistance */ = {
+			isa = PBXGroup;
+			children = (
+				3D3E2D792E994AF400675C05 /* PersistenceService.swift */,
+			);
+			path = Persistance;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -296,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D3E2D522E9881F300675C05 /* ProductListView.swift in Sources */,
+				3D3E2D7A2E994AF400675C05 /* PersistenceService.swift in Sources */,
 				3D3E2D502E98817100675C05 /* ProductListViewModel.swift in Sources */,
 				3D1E7B762E986329008EE67B /* SettingsManager.swift in Sources */,
 				3D3E2D772E993EAC00675C05 /* GoogleBrowserView.swift in Sources */,
