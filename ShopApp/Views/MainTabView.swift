@@ -18,6 +18,8 @@ struct MainTabView: View {
                 .tabItem { Label("Cart", systemImage: "cart.fill") }
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape") }
+            GoogleBrowserView()
+                .tabItem { Label("Google", systemImage: "globe") }
         }
     }
 }
