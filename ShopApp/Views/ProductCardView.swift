@@ -12,7 +12,7 @@ struct ProductCardView: View {
     // MARK: - Properties
     
     let product: Product
-    let isFavorite: Bool
+    @Binding var isFavorite: Bool
     let onAddToCart: () -> Void
     let onToggleFavorite: () -> Void
 
