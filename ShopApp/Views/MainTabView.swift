@@ -11,7 +11,9 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             ProductListView()
-                .tabItem { Label("Каталог", systemImage: "list.bullet") }
+                .tabItem { Label("Catalog", systemImage: "list.bullet") }
+            FavoritesView()
+                .tabItem { Label("Favorites", systemImage: "heart.fill") }
         }
     }
 }
