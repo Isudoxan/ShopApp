@@ -17,14 +17,15 @@ final class AppCoordinator: ObservableObject {
     @Published var favorites: [Product] = []
     @Published var cart: [Product] = []
     
+    @Published var selectedProduct: Product? = nil
+    
     // MARK: - Methods
     
     func isFavorite(_ product: Product) -> Bool {
         appState.isFavorite(product)
     }
     
-    func addToCart(_ product: Product,
-                   quantity: Int = 1) {
+    func addToCart(_ product: Product, quantity: Int = 1) {
         appState.addToCart(product, quantity: quantity)
     }
 
@@ -32,8 +33,17 @@ final class AppCoordinator: ObservableObject {
         appState.toggleFavorite(product)
     }
     
-    func updateQuantity(for product: Product,
-                        quantity: Int) {
+    func updateQuantity(for product: Product, quantity: Int) {
         appState.updateQuantity(for: product, quantity: quantity)
+    }
+    
+    // MARK: - Navigation
+    
+    func showProductDetail(_ product: Product) {
+        selectedProduct = product
+    }
+    
+    func clearSelectedProduct() {
+        selectedProduct = nil
     }
 }
