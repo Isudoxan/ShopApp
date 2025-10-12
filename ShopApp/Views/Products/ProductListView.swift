@@ -25,35 +25,55 @@ struct ProductListView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Product search", text: $viewModel.searchText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-
-                ScrollView {
-                    LazyVStack(spacing: 12) {
-                        ForEach(viewModel.filteredProducts) { product in
-                            NavigationLink(value: product) {
-                                ProductCardView(
-                                    product: product,
-                                    isFavorite: Binding(
-                                        get: { coordinator.isFavorite(product) },
-                                        set: { _ in coordinator.toggleFavorite(product) }
-                                    ),
-                                    onAddToCart: { coordinator.addToCart(product) },
-                                    onToggleFavorite: { coordinator.toggleFavorite(product) }
-                                )
-                                .padding(.horizontal)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                        }
-                    }
-                    .padding(.vertical)
+                searchBar
+                if viewModel.filteredProducts.isEmpty {
+                    Spacer()
+                    Text("No results.")
+                        .foregroundColor(.secondary)
+                    Spacer()
+                } else {
+                    scrollViewWithCards
                 }
             }
             .navigationDestination(for: Product.self) { product in
                 ProductDetailView(product: product)
             }
             .navigationTitle("Catalogue")
+        }
+    }
+    
+    // MARK: - Views
+    
+    private var searchBar: some View {
+        SearchBar(text: $viewModel.searchText,
+                  placeholder: "Search in catalogue")
+            .padding(.horizontal)
+    }
+    
+    private var scrollViewWithCards: some View {
+        ScrollView {
+            LazyVStack(spacing: 12) {
+                ForEach(viewModel.filteredProducts) { product in
+                    NavigationLink(value: product) {
+                        ProductCardView(
+                            product: product,
+                            isFavorite: Binding(
+                                get: {
+                                    coordinator.isFavorite(product)
+                                },
+                                set: { _ in
+                                    coordinator.toggleFavorite(product)
+                                }
+                            ),
+                            onAddToCart: { coordinator.addToCart(product) },
+                            onToggleFavorite: { coordinator.toggleFavorite(product) }
+                        )
+                        .padding(.horizontal)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
+            .padding(.vertical)
         }
     }
 }
