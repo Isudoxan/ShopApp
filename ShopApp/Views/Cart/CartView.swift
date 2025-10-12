@@ -30,7 +30,7 @@ struct CartView: View {
                 )
             ) {
                 if let selected = coordinator.selectedProduct {
-                    ProductDetailView(product: selected)
+                    ProductDetailView(product: selected, parent: 3)
                         .environmentObject(coordinator)
                 } else {
                     EmptyView()

@@ -38,13 +38,25 @@ struct ProductListView: View {
                 )
             ) {
                 if let selected = coordinator.selectedProduct {
-                    ProductDetailView(product: selected)
+                    ProductDetailView(product: selected, parent: 1)
                         .environmentObject(coordinator)
                 } else {
                     EmptyView()
                 }
             }
         }
+        .overlay(
+            Group {
+                if coordinator.showCartCheckmark {
+                    Image(systemName: "checkmark.circle.fill")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .foregroundColor(.green)
+                        .transition(.scale.combined(with: .opacity))
+                        .animation(.spring(), value: coordinator.showCartCheckmark)
+                }
+            }
+        )
         .environmentObject(coordinator)
         .onAppear {
             viewModel.setup(coordinator: coordinator)

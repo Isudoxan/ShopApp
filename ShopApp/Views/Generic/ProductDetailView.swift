@@ -13,6 +13,7 @@ struct ProductDetailView: View {
     
     @EnvironmentObject var coordinator: AppCoordinator
     let product: Product
+    var parent: Int
 
     // MARK: - Body
     
@@ -26,6 +27,21 @@ struct ProductDetailView: View {
         }
         .padding()
         .navigationTitle("Detail")
+        .overlay(
+            Group {
+                if parent != 1 {
+                    if coordinator.showCartCheckmark {
+                        Image(systemName: "checkmark.circle.fill")
+                            .resizable()
+                            .frame(width: 120, height: 120)
+                            .foregroundColor(.green)
+                            .transition(.scale.combined(with: .opacity))
+                            .animation(.spring(response: 0.4, dampingFraction: 0.6), value: coordinator.showCartCheckmark)
+                            .zIndex(100)
+                    }
+                }
+            }
+        )
     }
     
     // MARK: - Views
@@ -74,8 +90,10 @@ struct ProductDetailView: View {
                     .foregroundColor(.red)
                     .background(RoundedRectangle(cornerRadius: 8).stroke())
             }
+            
             Button(action: {
                 coordinator.addToCart(product)
+                coordinator.triggerCartCheckmark()
             }) {
                 Label("To Cart", systemImage: "cart.badge.plus")
                     .frame(maxWidth: .infinity)

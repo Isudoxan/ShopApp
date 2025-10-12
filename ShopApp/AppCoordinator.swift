@@ -15,9 +15,11 @@ final class AppCoordinator: ObservableObject {
     @Published var appState = AppState()
     @Published var settingsManager = SettingsManager()
     @Published var favorites: [Product] = []
-    
-    @Published var cartItems: [CartItem] = [] // <- для ViewModel
+    @Published var cartItems: [CartItem] = []
     @Published var selectedProduct: Product? = nil
+    
+    // Нове: анімована галочка
+    @Published var showCartCheckmark: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -67,5 +69,16 @@ final class AppCoordinator: ObservableObject {
     
     func clearSelectedProduct() {
         selectedProduct = nil
+    }
+    
+    // MARK: - Cart Checkmark Animation
+    
+    func triggerCartCheckmark() {
+        showCartCheckmark = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            withAnimation {
+                self.showCartCheckmark = false
+            }
+        }
     }
 }

@@ -15,7 +15,8 @@ struct ProductCardView: View {
     @Binding var isFavorite: Bool
     let onAddToCart: () -> Void
     let onToggleFavorite: () -> Void
-
+    @EnvironmentObject var coordinator: AppCoordinator
+    
     // MARK: - Body
     
     var body: some View {
@@ -26,9 +27,6 @@ struct ProductCardView: View {
             buttonsView
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 12)
-            .fill(Color(UIColor.systemBackground))
-            .shadow(radius: 1))
     }
     
     // MARK: - Views
@@ -74,7 +72,10 @@ struct ProductCardView: View {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                     .foregroundStyle(.red)
             }
-            Button(action: onAddToCart) {
+            Button(action: {
+                onAddToCart()
+                coordinator.triggerCartCheckmark()
+            }) {
                 Image(systemName: "cart.badge.plus")
             }
         }
