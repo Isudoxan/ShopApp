@@ -72,6 +72,7 @@ struct ProductCardView: View {
         VStack(spacing: 8) {
             Button(action: onToggleFavorite) {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
+                    .foregroundStyle(.red)
             }
             Button(action: onAddToCart) {
                 Image(systemName: "cart.badge.plus")
