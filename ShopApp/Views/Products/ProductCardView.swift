@@ -20,35 +20,63 @@ struct ProductCardView: View {
     
     var body: some View {
         HStack(spacing: 12) {
+            imageView
+            productInfoView
+            Spacer()
+            buttonsView
+        }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 12)
+            .fill(Color(UIColor.systemBackground))
+            .shadow(radius: 1))
+    }
+    
+    // MARK: - Views
+    
+    private var imageView: some View {
+        Group {
             if let imageName = product.imageName {
                 Image(imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 72, height: 72)
-                    .cornerRadius(8)
             } else {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(width: 72, height: 72)
-                    .overlay(Image(systemName: "cube.box.fill").font(.system(size: 28)).foregroundColor(.gray))
-            }
-            VStack(alignment: .leading, spacing: 6) {
-                Text(product.name).font(.headline).lineLimit(1)
-                Text(product.description).font(.subheadline).foregroundColor(.secondary).lineLimit(2)
-                Text(String(format: "%.2f ₴", product.price)).font(.subheadline).bold()
-            }
-            Spacer()
-            VStack(spacing: 8) {
-                Button(action: onToggleFavorite) {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                }
-                Button(action: onAddToCart) {
-                    Image(systemName: "cart.badge.plus")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.2))
+                    Image(systemName: "cube.box.fill")
+                        .font(.system(size: 28))
+                        .foregroundColor(.gray)
                 }
             }
-            .buttonStyle(BorderlessButtonStyle())
         }
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.systemBackground)).shadow(radius: 1))
+        .frame(width: 72, height: 72)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+    
+    private var productInfoView: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(product.name)
+                .font(.headline)
+                .lineLimit(1)
+            Text(product.description)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .lineLimit(2)
+            Text(String(format: "%.2f ₴", product.price))
+                .font(.subheadline)
+                .bold()
+        }
+    }
+    
+    private var buttonsView: some View {
+        VStack(spacing: 8) {
+            Button(action: onToggleFavorite) {
+                Image(systemName: isFavorite ? "heart.fill" : "heart")
+            }
+            Button(action: onAddToCart) {
+                Image(systemName: "cart.badge.plus")
+            }
+        }
+        .buttonStyle(BorderlessButtonStyle())
     }
 }
