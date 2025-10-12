@@ -18,52 +18,71 @@ struct ProductDetailView: View {
     
     var body: some View {
         VStack(spacing: 16) {
+            image
+            productName
+            productDescription
+            Spacer()
+            buttonsView
+        }
+        .padding()
+        .navigationTitle("Detail")
+    }
+    
+    // MARK: - Views
+    
+    private var image: some View {
+        Group {
             if let imageName = product.imageName {
                 Image(imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 200)
-                    .cornerRadius(8)
             } else {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(width: 200, height: 200)
-                    .overlay(
-                        Image(systemName: "cube.box.fill")
-                            .font(.system(size: 28))
-                            .foregroundColor(.gray)
-                    )
-            }
-            Text(product.name)
-                .font(.title2)
-                .bold()
-            Text(product.description)
-                .font(.body)
-                .foregroundColor(.secondary)
-                .padding(.horizontal)
-            Spacer()
-            HStack(spacing: 12) {
-                Button(action: {
-                    coordinator.toggleFavorite(product)
-                }) {
-                    Label("Favorites", systemImage: coordinator.isFavorite(product) ? "heart.fill" : "heart")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 8).stroke())
-                }
-                Button(action: {
-                    coordinator.addToCart(product)
-                }) {
-                    Label("To Cart", systemImage: "cart.badge.plus")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.accentColor))
-                        .foregroundColor(.white)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.2))
+                    Image(systemName: "cube.box.fill")
+                        .font(.system(size: 28))
+                        .foregroundColor(.gray)
                 }
             }
-            .padding(.horizontal)
         }
-        .padding()
-        .navigationTitle("Detail")
+        .frame(width: 200, height: 200)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+    
+    private var productName: some View {
+        Text(product.name)
+            .font(.title2)
+            .bold()
+    }
+    
+    private var productDescription: some View {
+        Text(product.description)
+            .font(.body)
+            .foregroundColor(.secondary)
+            .padding(.horizontal)
+    }
+    
+    private var buttonsView: some View {
+        HStack(spacing: 12) {
+            Button(action: {
+                coordinator.toggleFavorite(product)
+            }) {
+                Label("Favorites", systemImage: coordinator.isFavorite(product) ? "heart.fill" : "heart")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 8).stroke())
+            }
+            Button(action: {
+                coordinator.addToCart(product)
+            }) {
+                Label("To Cart", systemImage: "cart.badge.plus")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 8).fill(Color.accentColor))
+                    .foregroundColor(.white)
+            }
+        }
+        .padding(.horizontal)
     }
 }
