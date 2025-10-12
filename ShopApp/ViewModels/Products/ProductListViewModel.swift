@@ -15,6 +15,9 @@ final class ProductListViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published private(set) var products: [Product] = []
 
+    private var cancellables = Set<AnyCancellable>()
+    private var coordinator: AppCoordinator!
+    
     var filteredProducts: [Product] {
         let cleanSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         if cleanSearchText.isEmpty { return products }
@@ -22,9 +25,16 @@ final class ProductListViewModel: ObservableObject {
         return products.filter { $0.name.lowercased().contains(lowerCasedText) || $0.description.lowercased().contains(lowerCasedText) }
     }
     
-    // MARK: - Lifecycle
+    // MARK: - Methods
     
-    init(products: [Product]) {
-        self.products = products
+    func setup(coordinator: AppCoordinator) {
+        self.coordinator = coordinator
+        self.products = coordinator.appState.products
+        
+        coordinator.appState.$products
+            .sink { [weak self] newProducts in
+                self?.products = newProducts
+            }
+            .store(in: &cancellables)
     }
 }

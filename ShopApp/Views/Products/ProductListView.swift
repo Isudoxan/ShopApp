@@ -12,14 +12,8 @@ struct ProductListView: View {
     // MARK: - Properties
     
     @EnvironmentObject var coordinator: AppCoordinator
-    @StateObject private var viewModel: ProductListViewModel
+    @StateObject private var viewModel = ProductListViewModel()
     
-    // MARK: - Lifecycle
-
-    init() {
-        _viewModel = StateObject(wrappedValue: ProductListViewModel(products: MockData.products))
-    }
-
     // MARK: - Body
     
     var body: some View {
@@ -35,18 +29,32 @@ struct ProductListView: View {
                     scrollViewWithCards
                 }
             }
-            .navigationDestination(for: Product.self) { product in
-                ProductDetailView(product: product)
+            .navigationDestination(
+                isPresented: Binding(
+                    get: { coordinator.selectedProduct != nil },
+                    set: { active in
+                        if !active { coordinator.clearSelectedProduct() }
+                    }
+                )
+            ) {
+                if let selected = coordinator.selectedProduct {
+                    ProductDetailView(product: selected)
+                        .environmentObject(coordinator)
+                } else {
+                    EmptyView()
+                }
             }
-            .navigationTitle("Catalogue")
+        }
+        .environmentObject(coordinator)
+        .onAppear {
+            viewModel.setup(coordinator: coordinator)
         }
     }
     
     // MARK: - Views
     
     private var searchBar: some View {
-        SearchBar(text: $viewModel.searchText,
-                  placeholder: "Search in catalogue")
+        SearchBar(text: $viewModel.searchText, placeholder: "Search in catalogue")
             .padding(.horizontal)
     }
     
@@ -54,23 +62,19 @@ struct ProductListView: View {
         ScrollView {
             LazyVStack(spacing: 12) {
                 ForEach(viewModel.filteredProducts) { product in
-                    NavigationLink(value: product) {
-                        ProductCardView(
-                            product: product,
-                            isFavorite: Binding(
-                                get: {
-                                    coordinator.isFavorite(product)
-                                },
-                                set: { _ in
-                                    coordinator.toggleFavorite(product)
-                                }
-                            ),
-                            onAddToCart: { coordinator.addToCart(product) },
-                            onToggleFavorite: { coordinator.toggleFavorite(product) }
-                        )
-                        .padding(.horizontal)
+                    ProductCardView(
+                        product: product,
+                        isFavorite: Binding(
+                            get: { coordinator.isFavorite(product) },
+                            set: { _ in coordinator.toggleFavorite(product) }
+                        ),
+                        onAddToCart: { coordinator.addToCart(product) },
+                        onToggleFavorite: { coordinator.toggleFavorite(product) }
+                    )
+                    .padding(.horizontal)
+                    .onTapGesture {
+                        coordinator.showProductDetail(product)
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(.vertical)
