@@ -71,6 +71,7 @@ struct ProductDetailView: View {
                 Label("Favorites", systemImage: coordinator.isFavorite(product) ? "heart.fill" : "heart")
                     .frame(maxWidth: .infinity)
                     .padding()
+                    .foregroundColor(.red)
                     .background(RoundedRectangle(cornerRadius: 8).stroke())
             }
             Button(action: {
