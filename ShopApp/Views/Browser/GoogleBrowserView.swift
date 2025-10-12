@@ -16,11 +16,11 @@ struct GoogleBrowserView: UIViewControllerRepresentable {
 
     // MARK: - Methods
     
-    func makeUIViewController(context: Context) -> WebBrowserViewController {
-        let viewController = WebBrowserViewController()
-        viewController.initialURL = url
+    func makeUIViewController(context: Context) -> WebViewController {
+        let viewController = WebViewController()
+        viewController.url = url
         return viewController
     }
 
-    func updateUIViewController(_ uiViewController: WebBrowserViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: WebViewController, context: Context) {}
 }
