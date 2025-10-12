@@ -14,32 +14,33 @@ final class FavoritesViewModel: ObservableObject {
     
     @Published var searchText: String = ""
     @Published private(set) var favorites: [Product] = []
-    private var cancellables = Set<AnyCancellable>()
-    private let appState: AppState
-
-    // MARK: - Lifecycle
-    
-    init(appState: AppState) {
-        self.appState = appState
-        self.favorites = appState.favorites
-
-        appState.$favorites
-            .sink { [weak self] list in
-                self?.favorites = list
-            }
-            .store(in: &cancellables)
-    }
     
     // MARK: - Methods
-
-    func filtered() -> [Product] {
-        let cleanSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        if cleanSearchText.isEmpty { return favorites }
-        let textLowercades = cleanSearchText.lowercased()
-        return favorites.filter { $0.name.lowercased().contains(textLowercades) || $0.description.lowercased().contains(textLowercades) }
+    
+    func updateFavorites(_ list: [Product]) {
+        favorites = list
     }
-
-    func remove(_ product: Product) {
-        appState.toggleFavorite(product)
+    
+    func filteredFavorites() -> [Product] {
+        let cleanText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleanText.isEmpty else { return favorites }
+        let lowercasedText = cleanText.lowercased()
+        return favorites.filter {
+            $0.name.lowercased()
+                .contains(lowercasedText) ||
+            $0.description
+                .lowercased()
+                .contains(lowercasedText)
+        }
+    }
+    
+    func remove(_ product: Product, coordinator: AppCoordinator) {
+        coordinator.toggleFavorite(product)
+        
+        updateFavorites(coordinator.appState.favorites)
+    }
+    
+    func selectProduct(_ product: Product, coordinator: AppCoordinator) {
+        coordinator.showProductDetail(product)
     }
 }

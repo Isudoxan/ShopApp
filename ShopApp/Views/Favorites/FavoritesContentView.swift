@@ -13,19 +13,15 @@ struct FavoritesContentView: View {
     
     @ObservedObject var viewModel: FavoritesViewModel
     @EnvironmentObject var coordinator: AppCoordinator
-
+    
     // MARK: - Body
     
     var body: some View {
         VStack {
-            searchBar
-            if viewModel.filtered().isEmpty {
-                Spacer()
-                Text("Empty now.")
-                    .foregroundColor(.secondary)
-                Spacer()
+            if viewModel.filteredFavorites().isEmpty {
+                emptyState
             } else {
-                scrollViewWithProducts
+                listView
             }
         }
         .navigationTitle("Favorites")
@@ -33,47 +29,67 @@ struct FavoritesContentView: View {
     
     // MARK: - Views
     
-    private var searchBar: some View {
-        SearchBar(text: $viewModel.searchText, placeholder: "Search in favorites")
-            .padding(.horizontal)
+    private var emptyState: some View {
+        VStack {
+            Spacer()
+            Text("No favorites yet")
+                .foregroundColor(.secondary)
+            Spacer()
+        }
     }
     
-    private var scrollViewWithProducts: some View {
-        ScrollView {
-            LazyVStack(spacing: 12) {
-                ForEach(viewModel.filtered()) { product in
-                    HStack {
-                        if let imageName = product.imageName, !imageName.isEmpty {
-                            Image(imageName)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .cornerRadius(8)
-                        } else {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.gray.opacity(0.2))
-                                .frame(width: 50, height: 50)
-                                .overlay(Image(systemName: "cube.box.fill").foregroundColor(.gray))
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(product.name)
-                                .bold()
-                            Text(String(format: "₴ %.2f", product.price))
-                                .foregroundColor(.secondary)
-                                .font(.subheadline)
-                        }
-                        Spacer()
-                        Button(action: { coordinator.toggleFavorite(product) }) {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                        }
+    private var listView: some View {
+        List {
+            ForEach(viewModel.filteredFavorites()) { product in
+                productRow(product)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        viewModel.selectProduct(product, coordinator: coordinator)
                     }
-                    .padding(.horizontal)
-                    .padding(.vertical, 4)
+                    .padding(.vertical, 6)
+            }
+        }
+        .listStyle(PlainListStyle())
+    }
+    
+    private func productRow(_ product: Product) -> some View {
+        HStack(spacing: 12) {
+            productImage(product)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(product.name)
+                    .bold()
+                Text(product.description)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+            }
+            Spacer()
+            
+            Button(action: { viewModel.remove(product, coordinator: coordinator) }) {
+                Image(systemName: "trash")
+                    .foregroundColor(.red)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+        }
+    }
+    
+    private func productImage(_ product: Product) -> some View {
+        Group {
+            if let imageName = product.imageName, !imageName.isEmpty {
+                Image(imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+                    .cornerRadius(8)
+            } else {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 50, height: 50)
+                    Image(systemName: "cube.box.fill")
+                        .foregroundColor(.gray)
                 }
             }
-            .padding(.vertical)
         }
     }
 }

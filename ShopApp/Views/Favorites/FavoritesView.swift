@@ -12,18 +12,35 @@ struct FavoritesView: View {
     // MARK: - Properties
     
     @EnvironmentObject var coordinator: AppCoordinator
-    @StateObject private var ViewModel: FavoritesViewModel
-
-    // MARK: - Lifecycle
+    @StateObject private var viewModel = FavoritesViewModel()
     
-    init() {
-        _ViewModel = StateObject(wrappedValue: FavoritesViewModel(appState: AppState()))
-    }
-
     // MARK: - Body
     
     var body: some View {
-        let appState = coordinator.appState
-        FavoritesContentView(viewModel: FavoritesViewModel(appState: appState))
+        NavigationStack {
+            ZStack {
+                FavoritesContentView(viewModel: viewModel)
+            }
+            .navigationDestination(
+                isPresented: Binding(
+                    get: { coordinator.selectedProduct != nil },
+                    set: { active in
+                        if !active { coordinator.clearSelectedProduct() }
+                    }
+                )
+            ) {
+                if let selected = coordinator.selectedProduct {
+                    ProductDetailView(product: selected)
+                        .environmentObject(coordinator)
+                } else {
+                    EmptyView()
+                }
+            }
+        }
+        .environmentObject(coordinator)
+        .onAppear {
+            viewModel.updateFavorites(coordinator.appState.favorites)
+        }
     }
 }
+
