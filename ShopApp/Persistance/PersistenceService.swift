@@ -29,7 +29,8 @@ final class PersistenceService {
         defaults.set(data, forKey: cartKey)
     }
     func loadCartItems() -> [CartItem] {
-        guard let data = defaults.data(forKey: cartKey), let items = try? decoder.decode([CartItem].self, from: data) else { return [] }
+        guard let data = defaults.data(forKey: cartKey),
+                let items = try? decoder.decode([CartItem].self, from: data) else { return [] }
         return items
     }
 
@@ -40,7 +41,8 @@ final class PersistenceService {
         defaults.set(data, forKey: favoritesKey)
     }
     func loadFavorites() -> [Product] {
-        guard let data = defaults.data(forKey: favoritesKey), let items = try? decoder.decode([Product].self, from: data) else { return [] }
+        guard let data = defaults.data(forKey: favoritesKey),
+                let items = try? decoder.decode([Product].self, from: data) else { return [] }
         return items
     }
 
@@ -50,7 +52,8 @@ final class PersistenceService {
         defaults.set(theme.rawValue, forKey: themeKey)
     }
     func loadTheme() -> AppTheme {
-        guard let raw = defaults.string(forKey: themeKey), let theme = AppTheme(rawValue: raw) else { return .system }
+        guard let raw = defaults.string(forKey: themeKey),
+              let theme = AppTheme(rawValue: raw) else { return .system }
         return theme
     }
 }

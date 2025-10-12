@@ -36,7 +36,9 @@ final class AppState: ObservableObject {
     // MARK: - Methods
 
     func addToCart(_ product: Product, quantity: Int = 1) {
-        if let idx = cartItems.firstIndex(where: { $0.product.id == product.id }) {
+        if let idx = cartItems.firstIndex(where: {
+            $0.product.id == product.id
+        }) {
             cartItems[idx].quantity += quantity
         } else {
             cartItems.append(CartItem(product: product, quantity: quantity))
@@ -44,7 +46,9 @@ final class AppState: ObservableObject {
     }
 
     func updateQuantity(for product: Product, quantity: Int) {
-        guard let idx = cartItems.firstIndex(where: { $0.product.id == product.id }) else { return }
+        guard let idx = cartItems.firstIndex(where: {
+            $0.product.id == product.id
+        }) else { return }
         if quantity <= 0 {
             cartItems.remove(at: idx)
         } else {

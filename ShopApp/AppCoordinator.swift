@@ -23,7 +23,8 @@ final class AppCoordinator: ObservableObject {
         appState.isFavorite(product)
     }
     
-    func addToCart(_ product: Product, quantity: Int = 1) {
+    func addToCart(_ product: Product,
+                   quantity: Int = 1) {
         appState.addToCart(product, quantity: quantity)
     }
 
@@ -31,7 +32,8 @@ final class AppCoordinator: ObservableObject {
         appState.toggleFavorite(product)
     }
     
-    func updateQuantity(for product: Product, quantity: Int) {
+    func updateQuantity(for product: Product,
+                        quantity: Int) {
         appState.updateQuantity(for: product, quantity: quantity)
     }
 }
