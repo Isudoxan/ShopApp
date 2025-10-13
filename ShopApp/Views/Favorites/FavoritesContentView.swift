@@ -17,6 +17,7 @@ struct FavoritesContentView: View {
     // MARK: - Body
     
     var body: some View {
+        searchBar
         VStack {
             if viewModel.filteredFavorites().isEmpty {
                 emptyState
@@ -29,10 +30,15 @@ struct FavoritesContentView: View {
     
     // MARK: - Views
     
+    private var searchBar: some View {
+        SearchBar(text: $viewModel.searchText, placeholder: "Search in favorites")
+            .padding(.horizontal)
+    }
+    
     private var emptyState: some View {
         VStack {
             Spacer()
-            Text("No favorites yet")
+            Text("Empty now")
                 .foregroundColor(.secondary)
             Spacer()
         }
