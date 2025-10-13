@@ -31,13 +31,11 @@ struct CartView: View {
             ) {
                 if let selected = coordinator.selectedProduct {
                     ProductDetailView(product: selected, source: .cartPage, )
-                        .environmentObject(coordinator)
                 } else {
                     EmptyView()
                 }
             }
         }
-        .environmentObject(coordinator)
         .onAppear {
             viewModel.setup(coordinator: coordinator)
         }

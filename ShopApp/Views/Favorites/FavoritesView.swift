@@ -29,13 +29,11 @@ struct FavoritesView: View {
                 ) {
                     if let selected = coordinator.selectedProduct {
                         ProductDetailView(product: selected, source: .favoritesPage, )
-                            .environmentObject(coordinator)
                     } else {
                         EmptyView()
                     }
                 }
         }
-        .environmentObject(coordinator)
         .onAppear {
             viewModel.setup(coordinator: coordinator)
         }

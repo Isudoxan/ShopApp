@@ -39,7 +39,6 @@ struct ProductListView: View {
             ) {
                 if let selected = coordinator.selectedProduct {
                     ProductDetailView(product: selected, source: .cataloguePage, )
-                        .environmentObject(coordinator)
                 } else {
                     EmptyView()
                 }
@@ -48,7 +47,7 @@ struct ProductListView: View {
         .overlay(
             checkMarkOverlay
         )
-        .environmentObject(coordinator)
+        
         .onAppear {
             viewModel.setup(coordinator: coordinator)
         }
