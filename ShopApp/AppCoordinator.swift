@@ -18,7 +18,6 @@ final class AppCoordinator: ObservableObject {
     @Published var cartItems: [CartItem] = []
     @Published var selectedProduct: Product? = nil
     
-    // Нове: анімована галочка
     @Published var showCartCheckmark: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
