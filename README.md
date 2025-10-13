@@ -2,7 +2,7 @@
 
 This project is built using **SwiftUI** and **UIKit**, following the **MVVM** architecture.  
 It also uses **Combine** for reactive programming.  
-Minimum iOS version: **iOS 16** (можеш змінити на актуальну для твого проєкту).
+Minimum iOS version: **iOS 16**.
 
 ---
 
@@ -48,7 +48,6 @@ Minimum iOS version: **iOS 16** (можеш змінити на актуальн
 - **Languages & Frameworks:** Swift, SwiftUI, UIKit, Combine  
 - **Architecture:** MVVM  
 - **Minimum iOS Version:** 16.0  
-- **Dependencies:** None (or list if any)  
 - **Author / Maintainer:** [Your Name]
 
 ---
