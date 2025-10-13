@@ -192,10 +192,22 @@ extension WebViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        showEmptyState()
+        handleWebViewError(error)
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        handleWebViewError(error)
+    }
+    
+    private func handleWebViewError(_ error: Error) {
+        let nsError = error as NSError
+    
+        if nsError.code == NSURLErrorCancelled {
+            return
+        }
+        if webView.url != nil {
+            return
+        }
         showEmptyState()
     }
 }
