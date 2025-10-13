@@ -38,7 +38,7 @@ struct ProductListView: View {
                 )
             ) {
                 if let selected = coordinator.selectedProduct {
-                    ProductDetailView(product: selected, parent: 1)
+                    ProductDetailView(product: selected, source: .cataloguePage, )
                         .environmentObject(coordinator)
                 } else {
                     EmptyView()
@@ -46,16 +46,7 @@ struct ProductListView: View {
             }
         }
         .overlay(
-            Group {
-                if coordinator.showCartCheckmark {
-                    Image(systemName: "checkmark.circle.fill")
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .foregroundColor(.green)
-                        .transition(.scale.combined(with: .opacity))
-                        .animation(.spring(), value: coordinator.showCartCheckmark)
-                }
-            }
+            checkMarkOverlay
         )
         .environmentObject(coordinator)
         .onAppear {
@@ -92,5 +83,18 @@ struct ProductListView: View {
             .padding(.vertical)
         }
         .navigationTitle("Catalogue")
+    }
+    
+    private var checkMarkOverlay: some View {
+        Group {
+            if coordinator.showCartCheckmark {
+                Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.green)
+                    .transition(.scale.combined(with: .opacity))
+                    .animation(.spring(), value: coordinator.showCartCheckmark)
+            }
+        }
     }
 }

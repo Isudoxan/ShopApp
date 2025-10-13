@@ -9,11 +9,19 @@ import SwiftUI
 
 struct ProductDetailView: View {
     
+    // MARK: - Init Source Enum
+    
+    enum InitSource {
+        case cataloguePage
+        case favoritesPage
+        case cartPage
+    }
+    
     // MARK: - Properties
     
     @EnvironmentObject var coordinator: AppCoordinator
     let product: Product
-    var parent: Int
+    let source: InitSource
 
     // MARK: - Body
     
@@ -25,23 +33,11 @@ struct ProductDetailView: View {
             Spacer()
             buttonsView
         }
+        .overlay(
+            checkMarkOverlay
+        )
         .padding()
         .navigationTitle("Detail")
-        .overlay(
-            Group {
-                if parent != 1 {
-                    if coordinator.showCartCheckmark {
-                        Image(systemName: "checkmark.circle.fill")
-                            .resizable()
-                            .frame(width: 120, height: 120)
-                            .foregroundColor(.green)
-                            .transition(.scale.combined(with: .opacity))
-                            .animation(.spring(response: 0.4, dampingFraction: 0.6), value: coordinator.showCartCheckmark)
-                            .zIndex(100)
-                    }
-                }
-            }
-        )
     }
     
     // MARK: - Views
@@ -103,5 +99,21 @@ struct ProductDetailView: View {
             }
         }
         .padding(.horizontal)
+    }
+    
+    private var checkMarkOverlay: some View {
+        Group {
+            if source != .cataloguePage {
+                if coordinator.showCartCheckmark {
+                    Image(systemName: "checkmark.circle.fill")
+                        .resizable()
+                        .frame(width: 120, height: 120)
+                        .foregroundColor(.green)
+                        .transition(.scale.combined(with: .opacity))
+                        .animation(.spring(response: 0.4, dampingFraction: 0.6), value: coordinator.showCartCheckmark)
+                        .zIndex(100)
+                }
+            }
+        }
     }
 }

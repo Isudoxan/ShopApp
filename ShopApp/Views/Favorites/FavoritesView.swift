@@ -28,7 +28,7 @@ struct FavoritesView: View {
                     )
                 ) {
                     if let selected = coordinator.selectedProduct {
-                        ProductDetailView(product: selected, parent: 2)
+                        ProductDetailView(product: selected, source: .favoritesPage, )
                             .environmentObject(coordinator)
                     } else {
                         EmptyView()
