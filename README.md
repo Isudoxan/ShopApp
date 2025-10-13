@@ -48,7 +48,7 @@ Minimum iOS version: **iOS 16**.
 - **Languages & Frameworks:** Swift, SwiftUI, UIKit, Combine  
 - **Architecture:** MVVM  
 - **Minimum iOS Version:** 16.0  
-- **Author / Maintainer:** [Your Name]
+- **Author / Maintainer:** [Isudoxan]
 
 ---
 
