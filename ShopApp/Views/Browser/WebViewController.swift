@@ -37,6 +37,7 @@ class WebViewController: UIViewController {
     
     private lazy var emptyStateViewController: WebViewEmptyStateViewController = {
         let controller = WebViewEmptyStateViewController()
+        controller.configure(title: "Error", description: "Loading Error")
         controller.actionHandler = { [weak self] in
             self?.reloadURL()
         }
