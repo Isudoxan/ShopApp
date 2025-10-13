@@ -91,5 +91,6 @@ struct ProductListView: View {
             }
             .padding(.vertical)
         }
+        .navigationTitle("Catalogue")
     }
 }
