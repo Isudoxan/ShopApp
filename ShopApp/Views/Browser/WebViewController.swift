@@ -43,8 +43,6 @@ class WebViewController: UIViewController {
         return controller
     }()
     
-    private var initialURL: URL?
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -107,7 +105,6 @@ class WebViewController: UIViewController {
     func configure(url: String, title: String? = nil) {
         guard let url = URL(string: url) else { return }
         self.url = url
-        self.initialURL = url
         navigationBar.configure(title: title)
     }
     
@@ -232,8 +229,6 @@ extension WebViewController: ModalNavigationBarDelegate {
     }
     
     func didTapClose() {
-        guard let initialURL else { return }
-        self.url = initialURL
         loadURL()
     }
 }
