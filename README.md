@@ -1,5 +1,11 @@
 # App Screens Overview
 
+This project is built using **SwiftUI** and **UIKit**, following the **MVVM** architecture.  
+It also uses **Combine** for reactive programming.  
+Minimum iOS version: **iOS 16** (можеш змінити на актуальну для твого проєкту).
+
+---
+
 ## Catalog
 - Displays a list of 15–20 products with name, description, and price.
 - Includes a search bar for filtering products.
@@ -35,3 +41,26 @@
 ## Settings
 - Theme switcher: **Light / Dark / System**.
 - The selected theme is applied throughout the app and saved for future sessions.
+
+---
+
+## Project Details
+- **Languages & Frameworks:** Swift, SwiftUI, UIKit, Combine  
+- **Architecture:** MVVM  
+- **Minimum iOS Version:** 16.0  
+- **Dependencies:** None (or list if any)  
+- **Author / Maintainer:** [Your Name]
+
+---
+
+## Future Improvements / To-Do
+1. Add product prices to the Favorites page.  
+2. Disable ‹ › buttons in web controller immediately when clicked, not only after page load.  
+3. Disable ‹ › buttons when an error page is displayed.  
+4. Consider removing `AppCoordinator` and using only `AppState`.  
+5. Pass only necessary data (e.g., products) to dependent classes instead of the whole `AppCoordinator`.  
+6. Keep views simple: depend only on ViewModels, not on ViewModels & AppCoordinator.  
+7. Extract complicated logic from views into variables, functions, or separate files.  
+8. `ProductCardView` should not contain any logic; pass events to parent view/ViewModel.  
+9. Add web-view site title to the navigation bar.  
+10. In `SettingsManager`, merge `AppTheme` and `ColorScheme` enums to avoid duplication (use an extension).  
