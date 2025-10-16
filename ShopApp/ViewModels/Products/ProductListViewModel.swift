@@ -29,9 +29,9 @@ final class ProductListViewModel: ObservableObject {
     
     func setup(coordinator: AppCoordinator) {
         self.coordinator = coordinator
-        self.products = coordinator.appState.products
+        self.products = coordinator.products
         
-        coordinator.appState.$products
+        coordinator.$products
             .sink { [weak self] newProducts in
                 self?.products = newProducts
             }

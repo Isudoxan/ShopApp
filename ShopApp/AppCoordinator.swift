@@ -12,12 +12,12 @@ final class AppCoordinator: ObservableObject {
     
     // MARK: - Properties
     
-    @Published var appState = AppState()
-    @Published var settingsManager = SettingsManager()
-    @Published var favorites: [Product] = []
-    @Published var cartItems: [CartItem] = []
-    @Published var selectedProduct: Product? = nil
     
+    @Published var settingsManager = SettingsManager()
+    @Published var products: [Product] = MockData.products
+    @Published var cartItems: [CartItem] = []
+    @Published var favorites: [Product] = []
+    @Published var selectedProduct: Product? = nil
     @Published var showCartCheckmark: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
@@ -25,39 +25,54 @@ final class AppCoordinator: ObservableObject {
     // MARK: - Lifecycle
     
     init() {
-        appState.$cartItems
-            .sink { [weak self] items in
-                self?.cartItems = items
-            }
+        cartItems = PersistenceService.shared.loadCartItems()
+        favorites = PersistenceService.shared.loadFavorites()
+        
+        /// Save on change
+        $cartItems
+            .sink { PersistenceService.shared.saveCartItems($0) }
             .store(in: &cancellables)
         
-        appState.$favorites
-            .sink { [weak self] favs in
-                self?.favorites = favs
-            }
+        $favorites
+            .sink { PersistenceService.shared.saveFavorites($0) }
             .store(in: &cancellables)
     }
     
-    // MARK: - Methods
+    // MARK: - Cart Methods
     
     func addToCart(_ product: Product, quantity: Int = 1) {
-        appState.addToCart(product, quantity: quantity)
+        if let idx = cartItems.firstIndex(where: { $0.product.id == product.id }) {
+            cartItems[idx].quantity += quantity
+        } else {
+            cartItems.append(CartItem(product: product, quantity: quantity))
+        }
     }
     
     func updateQuantity(for product: Product, quantity: Int) {
-        appState.updateQuantity(for: product, quantity: quantity)
+        guard let idx = cartItems.firstIndex(where: { $0.product.id == product.id }) else { return }
+        if quantity <= 0 {
+            cartItems.remove(at: idx)
+        } else {
+            cartItems[idx].quantity = quantity
+        }
     }
     
     func clearCart() {
-        appState.clearCart()
+        cartItems.removeAll()
     }
     
+    // MARK: - Favorites Methods
+    
     func toggleFavorite(_ product: Product) {
-        appState.toggleFavorite(product)
+        if let idx = favorites.firstIndex(of: product) {
+            favorites.remove(at: idx)
+        } else {
+            favorites.append(product)
+        }
     }
     
     func isFavorite(_ product: Product) -> Bool {
-        appState.isFavorite(product)
+        favorites.contains(product)
     }
     
     // MARK: - Navigation
