@@ -9,13 +9,15 @@ import SwiftUI
 
 struct ProductCardView: View {
     
+    // MARK: - Actions
+    
+    let onAddToCart: () -> Void
+    let onToggleFavorite: () -> Void
+    
     // MARK: - Properties
     
     let product: Product
     @Binding var isFavorite: Bool
-    let onAddToCart: () -> Void
-    let onToggleFavorite: () -> Void
-    @EnvironmentObject var coordinator: AppCoordinator
     
     // MARK: - Body
     
@@ -52,7 +54,8 @@ struct ProductCardView: View {
     }
     
     private var productInfoView: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading,
+               spacing: 6) {
             Text(product.name)
                 .font(.headline)
                 .lineLimit(1)
@@ -68,14 +71,15 @@ struct ProductCardView: View {
     
     private var buttonsView: some View {
         VStack(spacing: 8) {
-            Button(action: onToggleFavorite) {
+            Button(action:
+                    onToggleFavorite
+            ) {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                     .foregroundStyle(.red)
             }
-            Button(action: {
-                onAddToCart()
-                coordinator.triggerCartCheckmark()
-            }) {
+            Button(action:
+                    onAddToCart
+            ) {
                 Image(systemName: "cart.badge.plus")
             }
         }

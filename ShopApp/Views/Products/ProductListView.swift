@@ -38,7 +38,7 @@ struct ProductListView: View {
                 )
             ) {
                 if let selected = coordinator.selectedProduct {
-                    ProductDetailView(product: selected, source: .cataloguePage, )
+                    ProductDetailView(product: selected, source: .cataloguePage)
                 } else {
                     EmptyView()
                 }
@@ -47,7 +47,6 @@ struct ProductListView: View {
         .overlay(
             checkMarkOverlay
         )
-        
         .onAppear {
             viewModel.setup(coordinator: coordinator)
         }
@@ -65,13 +64,13 @@ struct ProductListView: View {
             LazyVStack(spacing: 12) {
                 ForEach(viewModel.filteredProducts) { product in
                     ProductCardView(
+                        onAddToCart: { coordinator.addToCart(product) },
+                        onToggleFavorite: { coordinator.toggleFavorite(product) },
                         product: product,
                         isFavorite: Binding(
                             get: { coordinator.isFavorite(product) },
                             set: { _ in coordinator.toggleFavorite(product) }
-                        ),
-                        onAddToCart: { coordinator.addToCart(product) },
-                        onToggleFavorite: { coordinator.toggleFavorite(product) }
+                        )
                     )
                     .padding(.horizontal)
                     .onTapGesture {
@@ -97,3 +96,4 @@ struct ProductListView: View {
         }
     }
 }
+

@@ -46,6 +46,7 @@ final class AppCoordinator: ObservableObject {
         } else {
             cartItems.append(CartItem(product: product, quantity: quantity))
         }
+        triggerCartCheckmark()
     }
     
     func updateQuantity(for product: Product, quantity: Int) {
