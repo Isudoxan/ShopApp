@@ -18,26 +18,26 @@ struct CartView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                CartContentView(viewModel: viewModel)
-            }
-            .navigationDestination(
-                isPresented: Binding(
-                    get: { coordinator.selectedProduct != nil },
-                    set: { active in
-                        if !active { coordinator.clearSelectedProduct() }
-                    }
-                )
-            ) {
-                if let selected = coordinator.selectedProduct {
-                    ProductDetailView(product: selected, source: .cartPage, )
+            CartContentView(
+                items: viewModel.items,
+                total: viewModel.total,
+                onIncrease: { viewModel.increase($0) },
+                onDecrease: { viewModel.decrease($0) },
+                onRemove: { viewModel.remove($0) },
+                onSelect: { viewModel.selectProduct($0) },
+                onClearCart: { viewModel.clearCart() }
+            )
+            .navigationTitle("Cart")
+            .navigationDestination(isPresented: $viewModel.showProductDetail) {
+                if let selected = viewModel.selectedProduct {
+                    ProductDetailView(product: selected, source: .cartPage)
                 } else {
                     EmptyView()
                 }
             }
-        }
-        .onAppear {
-            viewModel.setup(coordinator: coordinator)
+            .onAppear {
+                viewModel.setup(coordinator: coordinator)
+            }
         }
     }
 }

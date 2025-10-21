@@ -11,13 +11,20 @@ struct CartContentView: View {
     
     // MARK: - Properties
     
-    @ObservedObject var viewModel: CartViewModel
+    let items: [CartItem]
+    let total: Double
+    
+    let onIncrease: (CartItem) -> Void
+    let onDecrease: (CartItem) -> Void
+    let onRemove: (CartItem) -> Void
+    let onSelect: (Product) -> Void
+    let onClearCart: () -> Void
     
     // MARK: - Body
     
     var body: some View {
         VStack {
-            if viewModel.items.isEmpty {
+            if items.isEmpty {
                 emptyState
             } else {
                 listWithProducts
@@ -25,18 +32,17 @@ struct CartContentView: View {
                 emptyCartButton
             }
         }
-        .navigationTitle("Cart")
     }
     
     // MARK: - Views
     
     private var listWithProducts: some View {
         List {
-            ForEach(viewModel.items) { item in
+            ForEach(items) { item in
                 productRow(item)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        viewModel.selectProduct(item.product)
+                        onSelect(item.product)
                     }
                     .padding(.vertical, 6)
             }
@@ -56,22 +62,27 @@ struct CartContentView: View {
                     .font(.subheadline)
             }
             Spacer()
-            
             HStack(spacing: 8) {
-                Button(action: { viewModel.decrease(item) }) {
+                Button(action: {
+                    onDecrease(item)
+                }) {
                     Image(systemName: "minus.circle")
                         .font(.title2)
                 }
                 Text("\(item.quantity)")
                     .frame(minWidth: 32)
-                Button(action: { viewModel.increase(item) }) {
+                Button(action: {
+                    onIncrease(item)
+                }) {
                     Image(systemName: "plus.circle")
                         .font(.title2)
                 }
             }
             .buttonStyle(BorderlessButtonStyle())
             
-            Button(action: { viewModel.remove(item) }) {
+            Button(action: {
+                onRemove(item)
+            }) {
                 Image(systemName: "trash")
                     .foregroundColor(.red)
             }
@@ -113,14 +124,14 @@ struct CartContentView: View {
             Text("Total Price:")
                 .font(.headline)
             Spacer()
-            Text(String(format: "₴ %.2f", viewModel.total))
+            Text(String(format: "₴ %.2f", total))
                 .font(.headline)
         }
         .padding()
     }
     
     private var emptyCartButton: some View {
-        Button(role: .destructive, action: { viewModel.clearCart() }) {
+        Button(role: .destructive, action: onClearCart) {
             Text("Empty cart")
                 .frame(maxWidth: .infinity)
                 .padding()
