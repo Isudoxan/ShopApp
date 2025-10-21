@@ -21,7 +21,7 @@ struct CartContentView: View {
                 emptyState
             } else {
                 listWithProducts
-                resultView
+                totalPriceView
                 emptyCartButton
             }
         }
@@ -108,9 +108,9 @@ struct CartContentView: View {
         }
     }
     
-    private var resultView: some View {
+    private var totalPriceView: some View {
         HStack {
-            Text("Result:")
+            Text("Total Price:")
                 .font(.headline)
             Spacer()
             Text(String(format: "₴ %.2f", viewModel.total))
