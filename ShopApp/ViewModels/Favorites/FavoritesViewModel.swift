@@ -13,17 +13,18 @@ final class FavoritesViewModel: ObservableObject {
     // MARK: - Properties
     
     @Published var searchText: String = ""
-    @Published private(set) var favorites: [Product] = []
+    @Published private(set) var favoriteItems: [Product] = []
 
     private var cancellables = Set<AnyCancellable>()
+    
     
     // MARK: - Lifecycle
     
     func setup(coordinator: AppCoordinator) {
-        coordinator.$favorites
+        coordinator.$favoriteItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] favs in
-                self?.favorites = favs
+                self?.favoriteItems = favs
             }
             .store(in: &cancellables)
     }
@@ -32,9 +33,9 @@ final class FavoritesViewModel: ObservableObject {
     
     func filteredFavorites() -> [Product] {
         let cleanText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !cleanText.isEmpty else { return favorites }
+        guard !cleanText.isEmpty else { return favoriteItems }
         let lowercasedText = cleanText.lowercased()
-        return favorites.filter {
+        return favoriteItems.filter {
             $0.name.lowercased().contains(lowercasedText) ||
             $0.description.lowercased().contains(lowercasedText)
         }

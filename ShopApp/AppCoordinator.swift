@@ -16,7 +16,7 @@ final class AppCoordinator: ObservableObject {
     @Published var settingsManager = SettingsManager()
     @Published var products: [Product] = MockData.products
     @Published var cartItems: [CartItem] = []
-    @Published var favorites: [Product] = []
+    @Published var favoriteItems: [Product] = []
     @Published var selectedProduct: Product? = nil
     @Published var showCartCheckmark: Bool = false
     
@@ -26,14 +26,14 @@ final class AppCoordinator: ObservableObject {
     
     init() {
         cartItems = PersistenceService.shared.loadCartItems()
-        favorites = PersistenceService.shared.loadFavorites()
+        favoriteItems = PersistenceService.shared.loadFavorites()
         
         /// Save on change
         $cartItems
             .sink { PersistenceService.shared.saveCartItems($0) }
             .store(in: &cancellables)
         
-        $favorites
+        $favoriteItems
             .sink { PersistenceService.shared.saveFavorites($0) }
             .store(in: &cancellables)
     }
@@ -65,15 +65,15 @@ final class AppCoordinator: ObservableObject {
     // MARK: - Favorites Methods
     
     func toggleFavorite(_ product: Product) {
-        if let idx = favorites.firstIndex(of: product) {
-            favorites.remove(at: idx)
+        if let idx = favoriteItems.firstIndex(of: product) {
+            favoriteItems.remove(at: idx)
         } else {
-            favorites.append(product)
+            favoriteItems.append(product)
         }
     }
     
     func isFavorite(_ product: Product) -> Bool {
-        favorites.contains(product)
+        favoriteItems.contains(product)
     }
     
     // MARK: - Navigation
