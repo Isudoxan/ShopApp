@@ -9,30 +9,36 @@ import SwiftUI
 
 struct FavoritesContentView: View {
     
+    // MARK: - Actions
+    
+    let onRemove: (Product) -> Void
+    let onSelect: (Product) -> Void
+    
     // MARK: - Properties
     
-    @ObservedObject var viewModel: FavoritesViewModel
-    @EnvironmentObject var coordinator: AppCoordinator
+    @Binding var searchText: String
+    let favorites: [Product]
+    let total: Double
     
     // MARK: - Body
     
     var body: some View {
-        searchBar
         VStack {
-            if viewModel.filteredFavorites().isEmpty {
+            searchBar
+            
+            if favorites.isEmpty {
                 emptyState
             } else {
                 listView
                 totalView
             }
         }
-        .navigationTitle("Favorites")
     }
     
     // MARK: - Views
     
     private var searchBar: some View {
-        SearchBar(text: $viewModel.searchText, placeholder: "Search in favorites")
+        SearchBar(text: $searchText, placeholder: "Search in favorites")
             .padding(.horizontal)
     }
     
@@ -47,11 +53,11 @@ struct FavoritesContentView: View {
     
     private var listView: some View {
         List {
-            ForEach(viewModel.filteredFavorites()) { product in
+            ForEach(favorites) { product in
                 productRow(product)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        viewModel.selectProduct(product, coordinator: coordinator)
+                        onSelect(product)
                     }
                     .padding(.vertical, 6)
             }
@@ -64,16 +70,16 @@ struct FavoritesContentView: View {
             productImage(product)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(product.name)
-                    .bold()
+                Text(product.name).bold()
                 Text(product.description)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
+            
             Spacer()
             
             Button(action: {
-                viewModel.remove(product, coordinator: coordinator)
+                onRemove(product)
             }) {
                 Image(systemName: "trash")
                     .foregroundColor(.red)
@@ -107,7 +113,7 @@ struct FavoritesContentView: View {
             Text("Total Price:")
                 .font(.headline)
             Spacer()
-            Text(String(format: "₴ %.2f", viewModel.total))
+            Text(String(format: "₴ %.2f", total))
                 .font(.headline)
         }
         .padding()

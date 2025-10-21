@@ -18,24 +18,24 @@ struct FavoritesView: View {
     
     var body: some View {
         NavigationStack {
-            FavoritesContentView(viewModel: viewModel)
-                .navigationDestination(
-                    isPresented: Binding(
-                        get: { coordinator.selectedProduct != nil },
-                        set: { active in
-                            if !active { coordinator.clearSelectedProduct() }
-                        }
-                    )
-                ) {
-                    if let selected = coordinator.selectedProduct {
-                        ProductDetailView(product: selected, source: .favoritesPage)
-                    } else {
-                        EmptyView()
-                    }
+            FavoritesContentView(
+                searchText: $viewModel.searchText,
+                favorites: viewModel.filteredFavorites,
+                total: viewModel.total,
+                onRemove: { viewModel.remove($0) },
+                onSelect: { viewModel.selectProduct($0) }
+            )
+            .navigationTitle("Favorites")
+            .navigationDestination(isPresented: $viewModel.showProductDetail) {
+                if let selected = viewModel.selectedProduct {
+                    ProductDetailView(product: selected, source: .favoritesPage)
+                } else {
+                    EmptyView()
                 }
-        }
-        .onAppear {
-            viewModel.setup(coordinator: coordinator)
+            }
+            .onAppear {
+                viewModel.setup(coordinator: coordinator)
+            }
         }
     }
 }
