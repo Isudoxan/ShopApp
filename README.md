@@ -53,12 +53,7 @@ Minimum iOS version: **iOS 16**.
 ---
 
 ## Future Improvements / To-Do
-1. Add product prices to the Favorites page.  
-2. Disable ‹ › buttons in web controller immediately when clicked, not only after page load.  
-3. Disable ‹ › buttons when an error page is displayed.  
-4. Pass only necessary data (e.g., products) to dependent classes instead of the whole `AppCoordinator`.  
-5. Keep views simple: depend only on ViewModels, not on ViewModels & AppCoordinator.  
-6. Extract complicated logic from views into variables, functions, or separate files.  
-7. `ProductCardView` should not contain any logic; pass events to parent view/ViewModel.  
-8. Add web-view site title to the navigation bar.  
-9. In `SettingsManager`, merge `AppTheme` and `ColorScheme` enums to avoid duplication (use an extension).  
+1. Disable ‹ › buttons in web controller immediately when clicked, not only after page load.  
+2. Disable ‹ › buttons when an error page is displayed.    
+3. Add web-view site title to the navigation bar.  
+4. In `SettingsManager`, merge `AppTheme` and `ColorScheme` enums to avoid duplication (use an extension).  
