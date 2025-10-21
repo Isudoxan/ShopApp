@@ -9,16 +9,18 @@ import SwiftUI
 
 struct CartContentView: View {
     
-    // MARK: - Properties
-    
-    let items: [CartItem]
-    let total: Double
+    // MARK: - Actions
     
     let onIncrease: (CartItem) -> Void
     let onDecrease: (CartItem) -> Void
     let onRemove: (CartItem) -> Void
     let onSelect: (Product) -> Void
     let onClearCart: () -> Void
+    
+    // MARK: - Properties
+    
+    let items: [CartItem]
+    let total: Double
     
     // MARK: - Body
     
