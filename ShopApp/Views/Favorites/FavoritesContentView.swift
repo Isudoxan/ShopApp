@@ -72,7 +72,9 @@ struct FavoritesContentView: View {
             }
             Spacer()
             
-            Button(action: { viewModel.remove(product, coordinator: coordinator) }) {
+            Button(action: {
+                viewModel.remove(product, coordinator: coordinator)
+            }) {
                 Image(systemName: "trash")
                     .foregroundColor(.red)
             }
