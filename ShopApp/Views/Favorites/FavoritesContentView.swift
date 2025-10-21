@@ -23,6 +23,7 @@ struct FavoritesContentView: View {
                 emptyState
             } else {
                 listView
+                totalView
             }
         }
         .navigationTitle("Favorites")
@@ -97,5 +98,16 @@ struct FavoritesContentView: View {
                 }
             }
         }
+    }
+    
+    private var totalView: some View {
+        HStack {
+            Text("Total Price:")
+                .font(.headline)
+            Spacer()
+            Text(String(format: "₴ %.2f", viewModel.total))
+                .font(.headline)
+        }
+        .padding()
     }
 }

@@ -14,9 +14,11 @@ final class FavoritesViewModel: ObservableObject {
     
     @Published var searchText: String = ""
     @Published private(set) var favoriteItems: [Product] = []
-
     private var cancellables = Set<AnyCancellable>()
     
+    var total: Double {
+        favoriteItems.reduce(0) { $0 + $1.price }
+    }
     
     // MARK: - Lifecycle
     
