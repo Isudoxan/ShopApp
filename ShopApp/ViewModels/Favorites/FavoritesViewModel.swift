@@ -26,28 +26,38 @@ final class FavoritesViewModel: ObservableObject {
         coordinator.$favoriteItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] favs in
-                self?.favoriteItems = favs
+                guard let self = self else { return }
+                self.favoriteItems = favs
+                log.info("Favorites updated. Total favorite items: \(favs.count).")
             }
             .store(in: &cancellables)
+        log.info("FavoritesViewModel setup complete.")
     }
     
     // MARK: - Methods
     
     func filteredFavorites() -> [Product] {
         let cleanText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !cleanText.isEmpty else { return favoriteItems }
+        guard !cleanText.isEmpty else {
+            log.info("Filtered favorites requested with empty search — returning all (\(favoriteItems.count)).")
+            return favoriteItems
+        }
         let lowercasedText = cleanText.lowercased()
-        return favoriteItems.filter {
+        let filtered = favoriteItems.filter {
             $0.name.lowercased().contains(lowercasedText) ||
             $0.description.lowercased().contains(lowercasedText)
         }
+        log.info("Filtered favorites with query '\(cleanText)': \(filtered.count) found.")
+        return filtered
     }
     
     func remove(_ product: Product, coordinator: AppCoordinator) {
         coordinator.toggleFavorite(product)
+        log.info("Removed product from favorites: \(product.name)")
     }
     
     func selectProduct(_ product: Product, coordinator: AppCoordinator) {
         coordinator.showProductDetail(product)
+        log.info("Selected product: \(product.name)")
     }
 }

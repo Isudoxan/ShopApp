@@ -5,7 +5,6 @@
 //  Created by Danylo Liubyi on 10.10.2025.
 //
 
-
 import SwiftUI
 
 struct GoogleBrowserView: UIViewControllerRepresentable {
@@ -19,6 +18,7 @@ struct GoogleBrowserView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> WebViewController {
         let viewController = WebViewController()
         viewController.url = url
+        log.info("GoogleBrowserView opened with URL: \(url.absoluteString)")
         return viewController
     }
 

@@ -22,15 +22,16 @@ final class CartViewModel: ObservableObject {
     
     // MARK: - Lifecycle
     
-    init() {}
-    
     func setup(coordinator: AppCoordinator) {
         self.coordinator = coordinator
         self.items = coordinator.cartItems
+        log.info("CartViewModel setup complete. Initial cart items: \(items.count).")
         
         coordinator.$cartItems
             .sink { [weak self] newItems in
-                self?.items = newItems
+                guard let self = self else { return }
+                self.items = newItems
+                log.info("Cart updated. Total items: \(newItems.count).")
             }
             .store(in: &cancellables)
     }
@@ -39,21 +40,26 @@ final class CartViewModel: ObservableObject {
     
     func increase(_ item: CartItem) {
         coordinator.updateQuantity(for: item.product, quantity: item.quantity + 1)
+        log.info("Increased quantity for product '\(item.product.name)' to \(item.quantity + 1).")
     }
     
     func decrease(_ item: CartItem) {
         coordinator.updateQuantity(for: item.product, quantity: item.quantity - 1)
+        log.info("Decreased quantity for product '\(item.product.name)' to \(item.quantity - 1).")
     }
     
     func remove(_ item: CartItem) {
         coordinator.updateQuantity(for: item.product, quantity: 0)
+        log.info("Removed product from cart: \(item.product.name).")
     }
     
     func clearCart() {
         coordinator.clearCart()
+        log.info("Cleared the cart.")
     }
     
     func selectProduct(_ product: Product) {
         coordinator.showProductDetail(product)
+        log.info("Selected product from cart: \(product.name).")
     }
 }

@@ -30,6 +30,7 @@ final class SettingsManager: ObservableObject {
     @Published var selectedTheme: AppTheme {
         didSet {
             PersistenceService.shared.saveTheme(selectedTheme)
+            log.info("Theme changed to: \(selectedTheme.rawValue)")
         }
     }
 
@@ -37,5 +38,6 @@ final class SettingsManager: ObservableObject {
     
     init() {
         self.selectedTheme = PersistenceService.shared.loadTheme()
+        log.info("SettingsManager initialized with theme: \(selectedTheme.rawValue)")
     }
 }

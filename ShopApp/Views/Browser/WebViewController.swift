@@ -107,6 +107,7 @@ class WebViewController: UIViewController {
         guard let url = URL(string: url) else { return }
         self.url = url
         navigationBar.configure(title: title)
+        log.info("WebViewController configured with URL: \(url.absoluteString)")
     }
     
     private func setupWebView() {
@@ -132,6 +133,7 @@ class WebViewController: UIViewController {
         
         let request = URLRequest(url: url)
         webView.load(request)
+        log.info("Started loading URL: \(url.absoluteString)")
     }
     
     private func reloadURL() {
@@ -140,6 +142,7 @@ class WebViewController: UIViewController {
             progressView.progress = 0
             progressView.alpha = 1
             webView.reload()
+            log.info("Reloading current URL: \(webView.url?.absoluteString ?? "unknown")")
         } else {
             loadURL()
         }
@@ -163,12 +166,15 @@ class WebViewController: UIViewController {
             emptyStateViewController.view.topAnchor.constraint(equalTo: progressView.bottomAnchor),
             emptyStateViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        log.warning("Showing empty state due to loading error.")
     }
     
     private func hideEmptyState() {
         emptyStateViewController.willMove(toParent: nil)
         emptyStateViewController.view.removeFromSuperview()
         emptyStateViewController.removeFromParent()
+        log.info("Hid empty state.")
     }
     
     // MARK: - Observe Progress
@@ -187,6 +193,7 @@ class WebViewController: UIViewController {
 extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         updateButtons()
+        log.info("Finished loading URL: \(webView.url?.absoluteString ?? "unknown")")
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -199,13 +206,14 @@ extension WebViewController: WKNavigationDelegate {
     
     private func handleWebViewError(_ error: Error) {
         let nsError = error as NSError
-    
+
         if nsError.code == NSURLErrorCancelled {
             return
         }
         if webView.url != nil {
             return
         }
+        log.error("WebView failed to load with error: \(error.localizedDescription)")
         showEmptyState()
     }
 }
@@ -219,17 +227,21 @@ extension WebViewController: WKUIDelegate { }
 extension WebViewController: ModalNavigationBarDelegate {
     func didTapBack() {
         webView.goBack()
+        log.info("Tapped Back button.")
     }
     
     func didTapForward() {
         webView.goForward()
+        log.info("Tapped Forward button.")
     }
     
     func didTapReload() {
         webView.reload()
+        log.info("Tapped Reload button.")
     }
     
     func didTapClose() {
         loadURL()
+        log.info("Tapped Close button, reloading URL.")
     }
 }

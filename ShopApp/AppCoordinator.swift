@@ -25,8 +25,11 @@ final class AppCoordinator: ObservableObject {
     // MARK: - Lifecycle
     
     init() {
+        log.info("Init AppCoordinator...")
         cartItems = PersistenceService.shared.loadCartItems()
+        log.info("Fetch cart items...")
         favoriteItems = PersistenceService.shared.loadFavorites()
+        log.info("Fetch favorites items...")
         
         /// Save on change
         $cartItems
@@ -36,35 +39,43 @@ final class AppCoordinator: ObservableObject {
         $favoriteItems
             .sink { PersistenceService.shared.saveFavorites($0) }
             .store(in: &cancellables)
+        log.info("AppCoordinator initialized successfully.")
     }
     
     // MARK: - Cart Methods
     
     func addToCart(_ product: Product, quantity: Int = 1) {
+        log.info("Adding item to cart...")
         if let idx = cartItems.firstIndex(where: { $0.product.id == product.id }) {
             cartItems[idx].quantity += quantity
         } else {
             cartItems.append(CartItem(product: product, quantity: quantity))
         }
+        log.info("Item added to cart.")
         triggerCartCheckmark()
     }
     
     func updateQuantity(for product: Product, quantity: Int) {
+        log.info("Updating quantity...")
         guard let idx = cartItems.firstIndex(where: { $0.product.id == product.id }) else { return }
         if quantity <= 0 {
             cartItems.remove(at: idx)
         } else {
             cartItems[idx].quantity = quantity
         }
+        log.info("Quantity updated.")
     }
     
     func clearCart() {
+        log.info("Clearing cart...")
         cartItems.removeAll()
+        log.info("Cart was cleaned.")
     }
     
     // MARK: - Favorites Methods
     
     func toggleFavorite(_ product: Product) {
+        log.info("Toggle item to favorites")
         if let idx = favoriteItems.firstIndex(of: product) {
             favoriteItems.remove(at: idx)
         } else {
@@ -73,22 +84,25 @@ final class AppCoordinator: ObservableObject {
     }
     
     func isFavorite(_ product: Product) -> Bool {
-        favoriteItems.contains(product)
+        return favoriteItems.contains(product)
     }
     
     // MARK: - Navigation
     
     func showProductDetail(_ product: Product) {
+        log.info("Open product detail view for \(product)")
         selectedProduct = product
     }
     
     func clearSelectedProduct() {
         selectedProduct = nil
+        log.info("Hide product detail view")
     }
     
     // MARK: - Cart Checkmark Animation
     
     func triggerCartCheckmark() {
+        log.info("Show checkmark...")
         showCartCheckmark = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             withAnimation {

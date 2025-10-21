@@ -30,10 +30,13 @@ final class ProductListViewModel: ObservableObject {
     func setup(coordinator: AppCoordinator) {
         self.coordinator = coordinator
         self.products = coordinator.products
+        log.info("ProductListViewModel setup complete. Initial products: \(products.count).")
         
         coordinator.$products
             .sink { [weak self] newProducts in
-                self?.products = newProducts
+                guard let self = self else { return }
+                log.info("Received new product list update. Total: \(newProducts.count).")
+                self.products = newProducts
             }
             .store(in: &cancellables)
     }
