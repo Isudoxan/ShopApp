@@ -30,23 +30,16 @@ struct ProductListView: View {
                 }
             }
             .navigationDestination(
-                isPresented: Binding(
-                    get: { coordinator.selectedProduct != nil },
-                    set: { active in
-                        if !active { coordinator.clearSelectedProduct() }
-                    }
-                )
+                isPresented: $viewModel.showProductDetail
             ) {
-                if let selected = coordinator.selectedProduct {
+                if let selected = viewModel.selectedProduct {
                     ProductDetailView(product: selected, source: .cataloguePage)
                 } else {
                     EmptyView()
                 }
             }
         }
-        .overlay(
-            checkMarkOverlay
-        )
+        .overlay(checkMarkOverlay)
         .onAppear {
             viewModel.setup(coordinator: coordinator)
         }
@@ -64,18 +57,18 @@ struct ProductListView: View {
             LazyVStack(spacing: 12) {
                 ForEach(viewModel.filteredProducts) { product in
                     ProductCardView(
-                        onAddToCart: { coordinator.addToCart(product) },
-                        onToggleFavorite: { coordinator.toggleFavorite(product) },
+                        onAddToCart: { viewModel.addToCart(product) },
+                        onToggleFavorite: { viewModel.toggleFavorite(product) },
                         product: product,
                         isFavorite: Binding(
-                            get: { coordinator.isFavorite(product) },
-                            set: { _ in coordinator.toggleFavorite(product) }
+                            get: { viewModel.isFavorite(product) },
+                            set: { _ in viewModel.toggleFavorite(product) }
                         )
                     )
-                    .padding(.horizontal)
                     .onTapGesture {
-                        coordinator.showProductDetail(product)
+                        viewModel.selectProduct(product)
                     }
+                    .padding(.horizontal)
                 }
             }
             .padding(.vertical)
@@ -85,15 +78,14 @@ struct ProductListView: View {
     
     private var checkMarkOverlay: some View {
         Group {
-            if coordinator.showCartCheckmark {
+            if viewModel.showCartCheckmark {
                 Image(systemName: "checkmark.circle.fill")
                     .resizable()
                     .frame(width: 100, height: 100)
                     .foregroundColor(.green)
                     .transition(.scale.combined(with: .opacity))
-                    .animation(.spring(), value: coordinator.showCartCheckmark)
+                    .animation(.spring(), value: viewModel.showCartCheckmark)
             }
         }
     }
 }
-
