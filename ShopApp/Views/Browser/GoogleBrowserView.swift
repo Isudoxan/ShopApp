@@ -17,7 +17,7 @@ struct GoogleBrowserView: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> WebViewController {
         let viewController = WebViewController()
-        viewController.url = url
+        viewController.configure(url: url.absoluteString)
         log.info("GoogleBrowserView opened with URL: \(url.absoluteString)")
         return viewController
     }

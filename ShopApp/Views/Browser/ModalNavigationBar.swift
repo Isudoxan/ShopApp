@@ -55,6 +55,9 @@ class ModalNavigationBar: UIView {
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.textColor = .label
         label.textAlignment = .center
+        label.lineBreakMode = .byTruncatingTail
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.8
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -131,6 +134,8 @@ class ModalNavigationBar: UIView {
         ]
         
         let titleLabelConstraints = [
+            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: forwardButton.trailingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: reloadButton.leadingAnchor, constant: -8),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]

@@ -103,9 +103,10 @@ class WebViewController: UIViewController {
     
     // MARK: - Configure
     
-    func configure(url: String, title: String? = nil) {
+    func configure(url: String) {
         guard let url = URL(string: url) else { return }
         self.url = url
+        var title = webView.title
         navigationBar.configure(title: title)
         log.info("WebViewController configured with URL: \(url.absoluteString)")
     }
@@ -117,6 +118,13 @@ class WebViewController: UIViewController {
         webView.addObserver(
             self,
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
+            options: .new,
+            context: nil
+        )
+        
+        webView.addObserver(
+            self,
+            forKeyPath: #keyPath(WKWebView.title),
             options: .new,
             context: nil
         )
@@ -182,10 +190,22 @@ class WebViewController: UIViewController {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?,
                                change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard keyPath == "estimatedProgress" else { return }
-        
-        progressView.progress = Float(webView.estimatedProgress)
-        progressView.isHidden = webView.estimatedProgress >= 1.0
+        switch keyPath {
+        case "estimatedProgress":
+            progressView.progress = Float(webView.estimatedProgress)
+            progressView.isHidden = webView.estimatedProgress >= 1.0
+
+        case "title":
+            navigationBar.configure(title: webView.title)
+
+        default:
+            break
+        }
+    }
+    
+    deinit {
+        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress))
+        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.title))
     }
 }
 
