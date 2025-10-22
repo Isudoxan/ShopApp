@@ -33,6 +33,8 @@
 		3D3E2D7A2E994AF400675C05 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E2D792E994AF400675C05 /* PersistenceService.swift */; };
 		3DB90DBD2E9D1E6500B603E2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90DBC2E9D1E6500B603E2 /* README.md */; };
 		3DB90DC62EA7F39100B603E2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB90DC52EA7F39100B603E2 /* Logger.swift */; };
+		3DB90DC92EA9013A00B603E2 /* ShopApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DB90DC72EA9013A00B603E2 /* ShopApp.xcdatamodeld */; };
+		3DB90DCB2EA9020100B603E2 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB90DCA2EA9020100B603E2 /* CoreDataManager.swift */; };
 		3DE1B9D42E9A7A2C00E752FF /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1B9D32E9A7A2C00E752FF /* WebViewController.swift */; };
 		3DE1B9D82E9A7B0700E752FF /* ModalNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1B9D72E9A7B0700E752FF /* ModalNavigationBar.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +67,8 @@
 		3D3E2D792E994AF400675C05 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		3DB90DBC2E9D1E6500B603E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3DB90DC52EA7F39100B603E2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		3DB90DC82EA9013A00B603E2 /* ShopApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShopApp.xcdatamodel; sourceTree = "<group>"; };
+		3DB90DCA2EA9020100B603E2 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		3DE1B9D32E9A7A2C00E752FF /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		3DE1B9D72E9A7B0700E752FF /* ModalNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,6 +89,7 @@
 			children = (
 				3DB90DBC2E9D1E6500B603E2 /* README.md */,
 				3D1E7B662E983481008EE67B /* ShopApp */,
+				3DB90DC72EA9013A00B603E2 /* ShopApp.xcdatamodeld */,
 				3D1E7B632E983481008EE67B /* Assets.xcassets */,
 				3D1E7B562E983478008EE67B /* Products */,
 			);
@@ -229,6 +234,7 @@
 		3D3E2D782E994AED00675C05 /* Persistance */ = {
 			isa = PBXGroup;
 			children = (
+				3DB90DCA2EA9020100B603E2 /* CoreDataManager.swift */,
 				3D3E2D792E994AF400675C05 /* PersistenceService.swift */,
 			);
 			path = Persistance;
@@ -339,6 +345,7 @@
 				3D3E2D582E9893A200675C05 /* FavoritesView.swift in Sources */,
 				3D1E7B682E983481008EE67B /* ShopAppApp.swift in Sources */,
 				3DE1B9D42E9A7A2C00E752FF /* WebViewController.swift in Sources */,
+				3DB90DC92EA9013A00B603E2 /* ShopApp.xcdatamodeld in Sources */,
 				3D3E2D4D2E987EEE00675C05 /* ProductCardView.swift in Sources */,
 				3D1E7B6E2E985B74008EE67B /* CartItem.swift in Sources */,
 				3D3E2D562E988E3F00675C05 /* FavoritesViewModel.swift in Sources */,
@@ -349,6 +356,7 @@
 				3D3E2D662E989D0900675C05 /* CartView.swift in Sources */,
 				3D1E7B712E985C85008EE67B /* MockData.swift in Sources */,
 				3D1ECC8F2E9C0B0D006B3675 /* WebViewEmptyStateViewController.swift in Sources */,
+				3DB90DCB2EA9020100B603E2 /* CoreDataManager.swift in Sources */,
 				3D3E2D722E993A8900675C05 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -563,6 +571,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3DB90DC72EA9013A00B603E2 /* ShopApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3DB90DC82EA9013A00B603E2 /* ShopApp.xcdatamodel */,
+			);
+			currentVersion = 3DB90DC82EA9013A00B603E2 /* ShopApp.xcdatamodel */;
+			path = ShopApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3D1E7B4D2E983478008EE67B /* Project object */;
 }

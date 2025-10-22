@@ -6,72 +6,119 @@
 //
 
 import Foundation
+import CoreData
 
 final class PersistenceService {
     
     // MARK: - Properties
     
     static let shared = PersistenceService()
-    private let defaults = UserDefaults.standard
-    private let cartKey = "shopCart"
-    private let favoritesKey = "shopFavorites"
-    private let themeKey = "shopTheme"
+    private let context = CoreDataManager.shared.context
 
-    private let encoder = JSONEncoder()
-    private let decoder = JSONDecoder()
-
-    // MARK: - Methods
-    
-    /// Cart
+    // MARK: - Cart
 
     func saveCartItems(_ items: [CartItem]) {
-        guard let data = try? encoder.encode(items) else { return }
-        defaults.set(data, forKey: cartKey)
-        log.info("Saved cart items. Total items: \(items.count)")
-    }
-    
-    func loadCartItems() -> [CartItem] {
-        guard let data = defaults.data(forKey: cartKey),
-              let items = try? decoder.decode([CartItem].self, from: data) else {
-            log.info("No cart items found, returning empty list.")
-            return []
+        clearEntity(named: "CartItemEntity")
+
+        for item in items {
+            let entity = CartItemEntity(context: context)
+            entity.id = UUID()
+            entity.productId = item.product.id
+            entity.name = item.product.name
+            entity.price = item.product.price
+            entity.quantity = Int64(item.quantity)
+            entity.imageName = item.product.imageName
         }
-        log.info("Loaded cart items. Total items: \(items.count)")
-        return items
+
+        CoreDataManager.shared.saveContext()
+        log.info("🛒 Saved \(items.count) cart items.")
     }
 
-    /// Favorites
+    func loadCartItems() -> [CartItem] {
+        let request: NSFetchRequest<CartItemEntity> = CartItemEntity.fetchRequest()
+        do {
+            let entities = try context.fetch(request)
+            return entities.map {
+                CartItem(product: Product(
+                    id: $0.productId ?? UUID(),
+                    name: $0.name ?? "",
+                    description: "",
+                    price: $0.price,
+                    imageName: $0.imageName
+                ), quantity: Int($0.quantity))
+            }
+        } catch {
+            log.error("⚠️ Failed to load cart items: \(error.localizedDescription)")
+            return []
+        }
+    }
+
+    // MARK: - Favorites
 
     func saveFavorites(_ products: [Product]) {
-        guard let data = try? encoder.encode(products) else { return }
-        defaults.set(data, forKey: favoritesKey)
-        log.info("Saved favorites. Total products: \(products.count)")
-    }
-    
-    func loadFavorites() -> [Product] {
-        guard let data = defaults.data(forKey: favoritesKey),
-              let items = try? decoder.decode([Product].self, from: data) else {
-            log.info("No favorite products found, returning empty list.")
-            return []
+        clearEntity(named: "FavoriteEntity")
+
+        for product in products {
+            let entity = FavoriteEntity(context: context)
+            entity.id = UUID()
+            entity.productId = product.id
+            entity.name = product.name
+            entity.price = product.price
+            entity.descriptionText = product.description
+            entity.imageName = product.imageName
         }
-        log.info("Loaded favorites. Total products: \(items.count)")
-        return items
+
+        CoreDataManager.shared.saveContext()
+        log.info("❤️ Saved \(products.count) favorites.")
     }
 
-    /// Theme
-    
-    func saveTheme(_ theme: AppTheme) {
-        defaults.set(theme.rawValue, forKey: themeKey)
-        log.info("Saved theme: \(theme.rawValue)")
+    func loadFavorites() -> [Product] {
+        let request: NSFetchRequest<FavoriteEntity> = FavoriteEntity.fetchRequest()
+        do {
+            let entities = try context.fetch(request)
+            return entities.map {
+                Product(id: $0.productId ?? UUID(),
+                        name: $0.name ?? "",
+                        description: $0.descriptionText ?? "",
+                        price: $0.price,
+                        imageName: $0.imageName)
+            }
+        } catch {
+            log.error("⚠️ Failed to load favorites: \(error.localizedDescription)")
+            return []
+        }
     }
-    
+
+    // MARK: - Theme
+
+    func saveTheme(_ theme: AppTheme) {
+        clearEntity(named: "ThemeEntity")
+        let entity = ThemeEntity(context: context)
+        entity.id = UUID()
+        entity.theme = theme.rawValue
+        CoreDataManager.shared.saveContext()
+        log.info("🎨 Saved theme: \(theme.rawValue)")
+    }
+
     func loadTheme() -> AppTheme {
-        guard let raw = defaults.string(forKey: themeKey),
-              let theme = AppTheme(rawValue: raw) else {
-            log.info("No theme found, returning default: system")
+        let request: NSFetchRequest<ThemeEntity> = ThemeEntity.fetchRequest()
+        guard let result = try? context.fetch(request).first,
+              let raw = result.theme,
+              let theme = AppTheme(rawValue: raw)
+        else {
             return .system
         }
-        log.info("Loaded theme: \(theme.rawValue)")
+        log.info("🎨 Loaded theme: \(theme.rawValue)")
         return theme
+    }
+
+    private func clearEntity(named name: String) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: name)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        do {
+            try context.execute(deleteRequest)
+        } catch {
+            log.error("⚠️ Failed to clear entity \(name): \(error.localizedDescription)")
+        }
     }
 }
