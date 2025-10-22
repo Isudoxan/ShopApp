@@ -149,7 +149,7 @@ class WebViewController: UIViewController {
     }
     
     private func updateButtons() {
-        navigationBar.setNavigationEnabled(back: webView.canGoBack, forward: webView.canGoForward)
+        navigationBar.setNavigationEnabled(back: webView.canGoBack, forward: webView.canGoForward, reload: true, close: true)
     }
     
     // MARK: - Empty State
@@ -166,6 +166,7 @@ class WebViewController: UIViewController {
             emptyStateViewController.view.topAnchor.constraint(equalTo: progressView.bottomAnchor),
             emptyStateViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        navigationBar.setNavigationEnabled(back: false, forward: false, reload: false, close: false)
         
         log.warning("Showing empty state due to loading error.")
     }

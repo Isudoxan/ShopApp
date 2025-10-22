@@ -148,12 +148,26 @@ class ModalNavigationBar: UIView {
         titleLabel.text = title
     }
     
-    func setNavigationEnabled(back: Bool, forward: Bool) {
-        backButton.isEnabled = back
-        forwardButton.isEnabled = forward
-        
-        backButton.tintColor = back ? .label : .systemGray3
-        forwardButton.tintColor = forward ? .label : .systemGray3
+    func setNavigationEnabled(back: Bool? = nil,
+                              forward: Bool? = nil,
+                              reload: Bool? = nil,
+                              close: Bool? = nil) {
+        if let back = back{
+            backButton.isEnabled = back
+            backButton.tintColor = back ? .label : .systemGray3
+        }
+        if let forward = forward {
+            forwardButton.isEnabled = forward
+            forwardButton.tintColor = forward ? .label : .systemGray3
+        }
+        if let reload = reload {
+            reloadButton.isEnabled = reload
+            reloadButton.tintColor = reload ? .label : .systemGray3
+        }
+        if let close = close {
+            closeButton.isEnabled = close
+            closeButton.tintColor = close ? .label : .systemGray3
+        }
     }
     
     // MARK: - Actions
