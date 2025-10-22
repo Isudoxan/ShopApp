@@ -106,8 +106,6 @@ class WebViewController: UIViewController {
     func configure(url: String) {
         guard let url = URL(string: url) else { return }
         self.url = url
-        var title = webView.title
-        navigationBar.configure(title: title)
         log.info("WebViewController configured with URL: \(url.absoluteString)")
     }
     
