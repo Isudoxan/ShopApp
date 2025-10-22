@@ -52,6 +52,5 @@ Minimum iOS version: **iOS 16**.
 
 ---
 
-## Future Improvements / To-Do
-1. Add web-view site title to the navigation bar.  
-2. In `SettingsManager`, merge `AppTheme` and `ColorScheme` enums to avoid duplication (use an extension).  
+## Future Improvements / To-Do  
+1. In `SettingsManager`, merge `AppTheme` and `ColorScheme` enums to avoid duplication (use an extension).  
