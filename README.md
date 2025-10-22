@@ -53,6 +53,5 @@ Minimum iOS version: **iOS 16**.
 ---
 
 ## Future Improvements / To-Do
-1. Disable ‹ › buttons in web controller immediately when clicked, not only after page load.
-2. Add web-view site title to the navigation bar.  
-3. In `SettingsManager`, merge `AppTheme` and `ColorScheme` enums to avoid duplication (use an extension).  
+1. Add web-view site title to the navigation bar.  
+2. In `SettingsManager`, merge `AppTheme` and `ColorScheme` enums to avoid duplication (use an extension).  
