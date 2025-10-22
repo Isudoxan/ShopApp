@@ -19,13 +19,13 @@ struct CartView: View {
     var body: some View {
         NavigationStack {
             CartContentView(
-                items: viewModel.items,
-                total: viewModel.total,
                 onIncrease: { viewModel.increase($0) },
                 onDecrease: { viewModel.decrease($0) },
                 onRemove: { viewModel.remove($0) },
                 onSelect: { viewModel.selectProduct($0) },
-                onClearCart: { viewModel.clearCart() }
+                onClearCart: { viewModel.clearCart() },
+                items: viewModel.items,
+                total: viewModel.total
             )
             .navigationTitle("Cart")
             .navigationDestination(isPresented: $viewModel.showProductDetail) {
@@ -41,3 +41,4 @@ struct CartView: View {
         }
     }
 }
+

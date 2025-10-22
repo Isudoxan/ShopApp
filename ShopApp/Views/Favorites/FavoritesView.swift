@@ -19,11 +19,11 @@ struct FavoritesView: View {
     var body: some View {
         NavigationStack {
             FavoritesContentView(
+                onRemove: { viewModel.remove($0) },
+                onSelect: { viewModel.selectProduct($0) },
                 searchText: $viewModel.searchText,
                 favorites: viewModel.filteredFavorites,
-                total: viewModel.total,
-                onRemove: { viewModel.remove($0) },
-                onSelect: { viewModel.selectProduct($0) }
+                total: viewModel.total
             )
             .navigationTitle("Favorites")
             .navigationDestination(isPresented: $viewModel.showProductDetail) {
@@ -39,3 +39,4 @@ struct FavoritesView: View {
         }
     }
 }
+
