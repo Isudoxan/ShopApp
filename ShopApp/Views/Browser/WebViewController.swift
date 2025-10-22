@@ -228,21 +228,25 @@ extension WebViewController: WKUIDelegate { }
 extension WebViewController: ModalNavigationBarDelegate {
     func didTapBack() {
         webView.goBack()
+        updateButtons()
         log.info("Tapped Back button.")
     }
     
     func didTapForward() {
         webView.goForward()
+        updateButtons()
         log.info("Tapped Forward button.")
     }
     
     func didTapReload() {
         webView.reload()
+        updateButtons()
         log.info("Tapped Reload button.")
     }
     
     func didTapClose() {
         loadURL()
+        updateButtons()
         log.info("Tapped Close button, reloading URL.")
     }
 }
